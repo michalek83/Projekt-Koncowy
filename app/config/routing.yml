@@ -1,0 +1,5 @@
+stolarz:
+    resource: "@StolarzBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

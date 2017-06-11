@@ -1,0 +1,45 @@
+{% extends "StolarzBundle:Default:base.html.twig" %}
+
+{% block title %}Klienci{% endblock %}
+
+{% block content %}
+    <h1>Klienci:</h1>
+    {% if confirmation is not null %}
+        {{ confirmation }}<br>
+    {% endif %}
+
+    {% if exist is not null %}
+        <font color = "red"><b>Klient o id {{ exist }} nie istnieje.</b></font><br>
+    {% endif %}
+
+    {% if deleted is not null %}
+        Klient {{ deleted.name }} skasowany.<br>
+    {% endif %}
+
+    <a href="{{ path('createCustomer') }}">Dodaj nowego klienta</a>
+
+    <table border = "1" rules = "all">
+        <tr>
+            <td>Id</td>
+            <td>Nazwa</td>
+            <td>Adres</td>
+            <td>Uwagi</td>
+            {#<td>Usuwanie</td>#}
+        </tr>
+        {% set i = 0 %}
+        {% for customer in allCustomers %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.description }}</td>
+                <td><a href="{{ path('deleteCustomer', {'id':customer.id}) }}">Usuń klienta</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

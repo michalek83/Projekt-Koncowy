@@ -1,0 +1,45 @@
+{% extends "StolarzBundle:Default:base.html.twig" %}
+
+{% block title %}Obrzeża{% endblock %}
+
+{% block content %}
+    <h1>Obrzeża:</h1>
+    {% if confirmation is not null %}
+        {{ confirmation }}<br>
+    {% endif %}
+
+    {% if exist is not null %}
+        <font color = "red"><b>Obrzeże o id {{ exist }} nie istnieje.</b></font><br>
+    {% endif %}
+
+    {% if deleted is not null %}
+        Obrzeże {{ deleted.name }} {{ deleted.thickness }} skasowany.<br>
+    {% endif %}
+
+    <a href="{{ path('createEdge') }}">Dodaj nowe obrzeże</a>
+
+    <table border = "1" rules = "all">
+        <tr>
+            <td>Id</td>
+            <td>Nazwa</td>
+            <td>Grubość</td>
+            <td>Uwagi</td>
+        </tr>
+        {% set i = 0 %}
+        {% for edge in allEdges %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ edge.name }}</td>
+                <td>{{ edge.thickness }} mm</td>
+                <td>{{ edge.description }}</td>
+                <td><a href="{{ path('deleteEdge', {'id':edge.id}) }}">Usuń obrzeże</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+        {% block footer %}
+            <br>
+            <div>
+                Stopka
+                <ul>
+                    <li><a href="{{ path('materialMain') }}">Zobacz materiały</a></li>
+                    <li><a href="{{ path('edgeMain') }}">Zobacz obrzeża</a></li>
+                    <li><a href="{{ path('customerMain') }}">Zobacz listę klientów</a></li><br>
+                    <li><a href="{{ path('main') }}">Powrót do strony głównej</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
