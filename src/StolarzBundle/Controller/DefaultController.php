@@ -5,6 +5,7 @@ namespace StolarzBundle\Controller;
 use StolarzBundle\Entity\Customer;
 use StolarzBundle\Entity\Edge;
 use StolarzBundle\Entity\Material;
+use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,8 +20,8 @@ class DefaultController extends Controller
      */
     public function mainAction()
     {
-//        $orderRepository = $this->getDoctrine()->getRepository('StolarzBundle:Order');
-//        $allOrders = $orderRepository->findAll();
+        $orderRepository = $this->getDoctrine()->getRepository('StolarzBundle:Order');
+        $allOrders = $orderRepository->findAll();
 //
 //        $session = $request->getSession();
 //        $confirmation = $session->get('confirmation', null);
@@ -51,6 +52,55 @@ class DefaultController extends Controller
                 'label' => 'Klient: ',
                 'choice_label' => 'name'
             ))
+            ->add('Wybierz', 'submit')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $customer = $form->getData();
+            $session = $request->getSession();
+            $session->set('customer', $customer);
+
+            return $this->redirectToRoute('elementMain');
+        }
+
+        return $this->render('StolarzBundle::createOrder.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/element", name="elementMain")
+     */
+    public function elementMainAction(Request $request)
+    {
+        $elementRepository = $this->getDoctrine()->getRepository('StolarzBundle:Element');
+        $allElements = $elementRepository->findAll();
+
+        $session = $request->getSession();
+        $order = $session->get('customer', null);
+//        $session->set('confirmation', null);
+//        $exist = $session->get('exist', null);
+//        $session->set('exist', null);
+//        $deleted = $session->get('deleted', null);
+//        $session->set('deleted', null);
+
+        return $this->render('StolarzBundle::elementMain.html.twig',
+            array(
+//                'confirmation' => $confirmation,
+                'allElements' => $allElements,
+                'order' => $order
+//                'exist' => $exist,
+//                'deleted' => $deleted
+            ));
+    }
+
+    /**
+     * @Route("/element/create", name="createElement")
+     */
+    public function createElementAction(Request $request)
+    {
+        $element = new Element();
+        $form = $this->createFormBuilder($element)
             ->add('material', 'entity', array(
                 'class' => 'StolarzBundle:Material',
                 'label' => 'Materiał: ',
@@ -71,13 +121,13 @@ class DefaultController extends Controller
             ->add('rotatable', 'checkbox', array('required' => false, 'label' => 'Obrotowo?: '))
             ->add('Dodaj', 'submit')
             ->getForm();
-
+        var_dump($request);
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-            $order = $form->getData();
+            $element = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($order);
+            $em->persist($element);
             $em->flush();
 
             $session = $request->getSession();
@@ -86,7 +136,12 @@ class DefaultController extends Controller
             return $this->redirectToRoute('main');
         }
 
-        return $this->render('StolarzBundle::createOrder.html.twig', array('form' => $form->createView()));
+        $session = $request->getSession();
+        $order = $session->get('customer', null);
+
+        return $this->render('StolarzBundle::createElement.html.twig', array(
+            'form' => $form->createView(),
+            'order' => $order));
     }
 
     /**

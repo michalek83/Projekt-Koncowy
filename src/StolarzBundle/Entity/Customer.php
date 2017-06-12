@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Customer
 {
+
     /**
      * @ORM\OneToMany(targetEntity="Order", mappedBy="customer")
      */
@@ -132,7 +133,40 @@ class Customer
      */
     public function __construct()
     {
-        $this->order = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     * @return Customer
+     */
+    public function addElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element[] = $element;
+
+        return $this;
+    }
+
+    /**
+     * Remove element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     */
+    public function removeElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element->removeElement($element);
+    }
+
+    /**
+     * Get element
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getElement()
+    {
+        return $this->element;
     }
 
     /**

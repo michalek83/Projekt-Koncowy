@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Customer
 {
+
     /**
      * @ORM\OneToMany(targetEntity="Order", mappedBy="customer")
      */
@@ -126,5 +127,78 @@ class Customer
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     * @return Customer
+     */
+    public function addElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element[] = $element;
+
+        return $this;
+    }
+
+    /**
+     * Remove element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     */
+    public function removeElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element->removeElement($element);
+    }
+
+    /**
+     * Get element
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getElement()
+    {
+        return $this->element;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \StolarzBundle\Entity\Order $order
+     * @return Customer
+     */
+    public function addOrder(\StolarzBundle\Entity\Order $order)
+    {
+        $this->order[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \StolarzBundle\Entity\Order $order
+     */
+    public function removeOrder(\StolarzBundle\Entity\Order $order)
+    {
+        $this->order->removeElement($order);
+    }
+
+    /**
+     * Get order
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

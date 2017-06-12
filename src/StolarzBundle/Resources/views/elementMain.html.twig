@@ -1,0 +1,51 @@
+{% extends "StolarzBundle:Default:base.html.twig" %}
+
+{% block title %}Zamówienie klienta {{ order.customer.name }} {% endblock %}
+
+{% block content %}
+    <h1>Zamówienie klienta {{ order.customer.name }}</h1>
+    <h5>Lista elementów:</h5>
+
+    {#{% if confirmation is not null %}#}
+        {#{{ confirmation }}<br>#}
+    {#{% endif %}#}
+
+    {#{% if exist is not null %}#}
+        {#<font color = "red"><b>Materiał o id {{ exist }} nie istnieje.</b></font><br>#}
+    {#{% endif %}#}
+
+    {#{% if deleted is not null %}#}
+        {#Materiał {{ deleted.name }} skasowany.<br>#}
+    {#{% endif %}#}
+
+    <a href="{{ path('createElement') }}">Dodaj nowy element</a><br><br>
+
+    <table border = "1" rules = "all">
+        <tr>
+            <td>Id</td>
+            <td>Materiał</td>
+            <td>Obrzeże</td>
+            <td>Długość</td>
+            <td>Obrzeże 1</td>
+            <td>Obrzeże 2</td>
+            <td>Szerokość</td>
+            <td>Obrzeże 1</td>
+            <td>Obrzeże 2</td>
+            <td>Obrotowo</td>
+        </tr>
+        {% set i = 0 %}
+        {% for element in allElements %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                {#<td>{{ element.lenght }}</td>#}
+                {#<td>{{ element.width }}</td>#}
+                {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

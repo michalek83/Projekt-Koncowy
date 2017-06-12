@@ -1,9 +1,10 @@
 {% extends "StolarzBundle:Default:base.html.twig" %}
 
-{% block title %}Dodaj zamówienie{% endblock %}
+{% block title %}Dodaj element{% endblock %}
 
 {% block content %}
-    <h1>Wybierz klienta:</h1>
+    <h1>Zamówienie klienta {{ order.customer.name }}</h1>
+    <h3>Dodaj element:</h3>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}

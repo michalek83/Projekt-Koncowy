@@ -3,7 +3,6 @@
 namespace StolarzBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Order
@@ -14,14 +13,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Order
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Material")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="order")
      */
-    private $material;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Edge")
-     */
-    private $edge;
+    private $element;
 
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="order")
@@ -37,62 +31,6 @@ class Order
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lenght", type="decimal", precision=5, scale=1)
-     */
-    private $lenght;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="width", type="decimal", precision=5, scale=1)
-     */
-    private $width;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="quantity", type="integer")
-     */
-    private $quantity;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="lenghtEdge1", type="boolean")
-     */
-    private $lenghtEdge1;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="lenghtEdge2", type="boolean")
-     */
-    private $lenghtEdge2;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="widthEdge1", type="boolean")
-     */
-    private $widthEdge1;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="widthEdge2", type="boolean")
-     */
-    private $widthEdge2;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="rotatable", type="boolean")
-     */
-    private $rotatable;
-
 
     /**
      * Get id
@@ -103,188 +41,67 @@ class Order
     {
         return $this->id;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
-     * Set lenght
+     * Add element
      *
-     * @param string $lenght
+     * @param \StolarzBundle\Entity\Element $element
      * @return Order
      */
-    public function setLenght($lenght)
+    public function addElement(\StolarzBundle\Entity\Element $element)
     {
-        $this->lenght = $lenght;
+        $this->element[] = $element;
 
         return $this;
     }
 
     /**
-     * Get lenght
+     * Remove element
      *
-     * @return string 
+     * @param \StolarzBundle\Entity\Element $element
      */
-    public function getLenght()
+    public function removeElement(\StolarzBundle\Entity\Element $element)
     {
-        return $this->lenght;
+        $this->element->removeElement($element);
     }
 
     /**
-     * Set width
+     * Get element
      *
-     * @param string $width
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getElement()
+    {
+        return $this->element;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \StolarzBundle\Entity\Customer $customer
      * @return Order
      */
-    public function setWidth($width)
+    public function setCustomer(\StolarzBundle\Entity\Customer $customer = null)
     {
-        $this->width = $width;
+        $this->customer = $customer;
 
         return $this;
     }
 
     /**
-     * Get width
+     * Get customer
      *
-     * @return string 
+     * @return \StolarzBundle\Entity\Customer 
      */
-    public function getWidth()
+    public function getCustomer()
     {
-        return $this->width;
-    }
-
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     * @return Order
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return integer 
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * Set lenghtEdge1
-     *
-     * @param boolean $lenghtEdge1
-     * @return Order
-     */
-    public function setLenghtEdge1($lenghtEdge1)
-    {
-        $this->lenghtEdge1 = $lenghtEdge1;
-
-        return $this;
-    }
-
-    /**
-     * Get lenghtEdge1
-     *
-     * @return boolean 
-     */
-    public function getLenghtEdge1()
-    {
-        return $this->lenghtEdge1;
-    }
-
-    /**
-     * Set lenghtEdge2
-     *
-     * @param boolean $lenghtEdge2
-     * @return Order
-     */
-    public function setLenghtEdge2($lenghtEdge2)
-    {
-        $this->lenghtEdge2 = $lenghtEdge2;
-
-        return $this;
-    }
-
-    /**
-     * Get lenghtEdge2
-     *
-     * @return boolean 
-     */
-    public function getLenghtEdge2()
-    {
-        return $this->lenghtEdge2;
-    }
-
-    /**
-     * Set widthEdge1
-     *
-     * @param boolean $widthEdge1
-     * @return Order
-     */
-    public function setWidthEdge1($widthEdge1)
-    {
-        $this->widthEdge1 = $widthEdge1;
-
-        return $this;
-    }
-
-    /**
-     * Get widthEdge1
-     *
-     * @return boolean 
-     */
-    public function getWidthEdge1()
-    {
-        return $this->widthEdge1;
-    }
-
-    /**
-     * Set widthEdge2
-     *
-     * @param boolean $widthEdge2
-     * @return Order
-     */
-    public function setWidthEdge2($widthEdge2)
-    {
-        $this->widthEdge2 = $widthEdge2;
-
-        return $this;
-    }
-
-    /**
-     * Get widthEdge2
-     *
-     * @return boolean
-     */
-    public function getWidthEdge2()
-    {
-        return $this->widthEdge2;
-    }
-
-    /**
-     * Set rotatable
-     *
-     * @param boolean $rotatable
-     * @return Order
-     */
-    public function setRotatable($rotatable)
-    {
-        $this->rotatable = $rotatable;
-
-        return $this;
-    }
-
-    /**
-     * Get rotatable
-     *
-     * @return boolean 
-     */
-    public function getRotatable()
-    {
-        return $this->rotatable;
+        return $this->customer;
     }
 }

@@ -121,4 +121,15 @@ class Edge
     {
         return $this->description;
     }
+
+    /**
+     * Get nameThickness
+     *
+     * @return string
+     */
+    public function getNameThickness()
+    {
+        $nameThickness = $this->getName() . " " . $this->getThickness();
+        return $nameThickness;
+    }
 }
