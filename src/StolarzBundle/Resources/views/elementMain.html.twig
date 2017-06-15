@@ -33,16 +33,31 @@
             <td>Obrzeże 2</td>
             <td>Obrotowo</td>
         </tr>
-        {% set i = 0 %}
-        {% for element in allElements %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                {#<td>{{ element.lenght }}</td>#}
-                {#<td>{{ element.width }}</td>#}
-                {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
-            </tr>
-        {% endfor %}
+
+        {% if allElements is empty %}
+            <font color="red"><b>Brak zamówień klienta {{ order.customer.name }} </b></font>
+        {% else %}
+            {% set i = 0 %}
+            {% for element in allElements %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    {#<td>{{ dump(element.material) }}</td>#}
+                    {#<td>{{ dump(element.edge) }}</td>#}
+                    <td>{{ element.material }}</td>
+                    <td>{{ element.edge }}</td>
+                    <td>{{ element.lenght }}</td>
+                    <td>{{ element.lenghtEdge1 }}</td>
+                    <td>{{ element.lenghtEdge2 }}</td>
+                    <td>{{ element.width }}</td>
+                    <td>{{ element.widthEdge1 }}</td>
+                    <td>{{ element.widthEdge2 }}</td>
+                    <td>{{ element.rotatable }}</td>
+                    {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
+                </tr>
+            {% endfor %}
+        {% endif %}
+
     </table>
 {% endblock %}
 

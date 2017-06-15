@@ -9,9 +9,12 @@ use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class DefaultController extends Controller
 {
@@ -101,16 +104,36 @@ class DefaultController extends Controller
     {
         $element = new Element();
         $form = $this->createFormBuilder($element)
-            ->add('material', 'entity', array(
-                'class' => 'StolarzBundle:Material',
-                'label' => 'Materiał: ',
-                'choice_label' => 'name',
+            ->add('material', CollectionType::class, array(
+                'label' => "Materiał: ",
+                'entry_type' => EntityType::class,
+                'entry_options' => array(
+                    'class' => 'StolarzBundle:Material',
+                    'choice_label' => 'name'
+                ),
+                'allow_add' => true,
+                'prototype' => true
             ))
-            ->add('edge', 'entity', array(
-                'class' => 'StolarzBundle:Edge',
-                'label' => 'Obrzeże: ',
-                'choice_label' => 'nameThickness'
+//            ->add('material', EntityType::class, array(
+//                'class' => 'StolarzBundle:Material',
+//                'label' => 'Materiał: ',
+//                'choice_label' => 'name',
+//            ))
+            ->add('edge', CollectionType::class, array(
+                'label' => "Obrzeże: ",
+                'entry_type' => EntityType::class,
+                'entry_options' => array(
+                    'class' => 'StolarzBundle:Edge',
+                    'choice_label' => 'nameThickness'
+                ),
+                'allow_add' => true,
+                'prototype' => true
             ))
+//            ->add('edge', EntityType::class, array(
+//                'class' => 'StolarzBundle:Edge',
+//                'label' => 'Obrzeże: ',
+//                'choice_label' => 'nameThickness'
+//            ))
             ->add('lenght', 'number', array('label' => 'Długość: '))
             ->add('lenghtEdge1', 'checkbox', array('required' => false, 'label' => 'Okleina po długości 1: '))
             ->add('lenghtEdge2', 'checkbox', array('required' => false, 'label' => 'Okleina po długości 2: '))
@@ -121,10 +144,10 @@ class DefaultController extends Controller
             ->add('rotatable', 'checkbox', array('required' => false, 'label' => 'Obrotowo?: '))
             ->add('Dodaj', 'submit')
             ->getForm();
-        var_dump($request);
+
         $form->handleRequest($request);
 
-        if($form->isSubmitted()){
+        if($form->isSubmitted() && $form->isValid()){
             $element = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($element);
@@ -133,7 +156,7 @@ class DefaultController extends Controller
             $session = $request->getSession();
             $session->set('confirmation', "Zamówienie zapisano poprawnie.");
 
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('elementMain');
         }
 
         $session = $request->getSession();

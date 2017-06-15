@@ -19,12 +19,12 @@ class Element
     private $order;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Material")
+     * @ORM\ManyToMany(targetEntity="Material", inversedBy="element")
      */
     private $material;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Edge")
+     * @ORM\ManyToMany(targetEntity="Edge", inversedBy="element")
      */
     private $edge;
 
