@@ -304,7 +304,11 @@ class Element
      */
     public function addMaterial(\StolarzBundle\Entity\Material $material)
     {
-        $this->material[] = $material;
+    	if(!is_array($material)){
+        	$material = array($material);
+		}
+
+    	$this->material[] = $material;
 
         return $this;
     }
@@ -316,6 +320,10 @@ class Element
      */
     public function removeMaterial(\StolarzBundle\Entity\Material $material)
     {
+		if(!is_array($material)){
+			$material = array($material);
+		}
+
         $this->material->removeElement($material);
     }
 
@@ -337,6 +345,10 @@ class Element
      */
     public function addEdge(\StolarzBundle\Entity\Edge $edge)
     {
+		if(!is_array($edge)){
+			$edge = array($edge);
+		}
+
         $this->edge[] = $edge;
 
         return $this;
