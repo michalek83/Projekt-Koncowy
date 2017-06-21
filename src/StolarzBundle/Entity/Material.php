@@ -101,4 +101,52 @@ class Material
     {
         return $this->name;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     * @return Material
+     */
+    public function addElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element[] = $element;
+
+        return $this;
+    }
+
+	/**
+	 * @param mixed $element
+	 */
+	public function setElement( $element )
+	{
+		$this->element = $element;
+	}
+
+    /**
+     * Remove element
+     *
+     * @param \StolarzBundle\Entity\Element $element
+     */
+    public function removeElement(\StolarzBundle\Entity\Element $element)
+    {
+        $this->element->removeElement($element);
+    }
+
+    /**
+     * Get element
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getElement()
+    {
+        return $this->element;
+    }
 }

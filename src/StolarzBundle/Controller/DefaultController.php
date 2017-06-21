@@ -9,7 +9,9 @@ use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -104,7 +106,7 @@ class DefaultController extends Controller
 	{
 		$element = new Element();
 		$form = $this->createFormBuilder( $element )
-//            ->add('material', CollectionType::class, array(
+//			->add('material', CollectionType::class, array(
 //                'label' => "Materiał: ",
 //                'entry_type' => EntityType::class,
 //                'entry_options' => array(

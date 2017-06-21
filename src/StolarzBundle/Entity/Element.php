@@ -93,6 +93,14 @@ class Element
      */
     private $rotatable;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->material = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->edge = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -258,7 +266,7 @@ class Element
     /**
      * Get widthEdge2
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getWidthEdge2()
     {
@@ -287,13 +295,28 @@ class Element
     {
         return $this->rotatable;
     }
+
     /**
-     * Constructor
+     * Set order
+     *
+     * @param \StolarzBundle\Entity\Order $order
+     * @return Element
      */
-    public function __construct()
+    public function setOrder(\StolarzBundle\Entity\Order $order = null)
     {
-        $this->material = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->edge = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return \StolarzBundle\Entity\Order 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 
     /**
@@ -304,11 +327,7 @@ class Element
      */
     public function addMaterial(\StolarzBundle\Entity\Material $material)
     {
-    	if(!is_array($material)){
-        	$material = array($material);
-		}
-
-    	$this->material[] = $material;
+        $this->material[] = $material;
 
         return $this;
     }
@@ -320,10 +339,6 @@ class Element
      */
     public function removeMaterial(\StolarzBundle\Entity\Material $material)
     {
-		if(!is_array($material)){
-			$material = array($material);
-		}
-
         $this->material->removeElement($material);
     }
 
@@ -345,10 +360,6 @@ class Element
      */
     public function addEdge(\StolarzBundle\Entity\Edge $edge)
     {
-		if(!is_array($edge)){
-			$edge = array($edge);
-		}
-
         $this->edge[] = $edge;
 
         return $this;
@@ -372,51 +383,5 @@ class Element
     public function getEdge()
     {
         return $this->edge;
-    }
-
-    /**
-     * Set customer
-     *
-     * @param \StolarzBundle\Entity\Customer $customer
-     * @return Element
-     */
-    public function setCustomer(\StolarzBundle\Entity\Customer $customer = null)
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Get customer
-     *
-     * @return \StolarzBundle\Entity\Customer 
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * Set order
-     *
-     * @param \StolarzBundle\Entity\Order $order
-     * @return Element
-     */
-    public function setOrder(\StolarzBundle\Entity\Order $order = null)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return \StolarzBundle\Entity\Order 
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 }
