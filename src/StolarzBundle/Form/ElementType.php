@@ -18,19 +18,19 @@ class ElementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//			->add('material', CollectionType::class, array(
-//				'entry_type' => MaterialType::class,
-//				'label' => 'Materiał: ',
-//				'entry_options' => [
-//
-//					'label' => false,
-//				],
-//			))
-			->add( 'material', EntityType::class, array(
-				'class' => 'StolarzBundle:Material',
+			->add('material', CollectionType::class, array(
+				'entry_type' => MaterialType::class,
 				'label' => 'Materiał: ',
-				'choice_label' => 'name'
-			) )
+				'entry_options' => [
+
+					'label' => false,
+				],
+			))
+//			->add( 'material', EntityType::class, array(
+//				'class' => 'StolarzBundle:Material',
+//				'label' => 'Materiał: ',
+//				'choice_label' => 'name'
+//			) )
 			->add( 'lenght', 'number', array( 'label' => 'Długość: ' ) )
 			->add( 'lenghtEdge1', 'checkbox', array( 'required' => false, 'label' => 'Okleina po długości 1: ' ) )
 			->add( 'lenghtEdge2', 'checkbox', array( 'required' => false, 'label' => 'Okleina po długości 2: ' ) )
