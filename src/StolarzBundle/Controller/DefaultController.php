@@ -113,8 +113,6 @@ class DefaultController extends Controller
 
 		$form->handleRequest( $request );
 
-		$form->handleRequest( $request );
-
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$element = $form->getData();
 			var_dump( $element );
