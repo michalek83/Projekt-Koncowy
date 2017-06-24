@@ -7,6 +7,7 @@ use StolarzBundle\Entity\Edge;
 use StolarzBundle\Entity\Material;
 use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Order;
+use StolarzBundle\Form\ElementType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -97,6 +98,39 @@ class DefaultController extends Controller
 //                'exist' => $exist,
 //                'deleted' => $deleted
 			) );
+	}
+
+	/**
+	 * @Route("/element/create1", name="createElement1")
+	 */
+	public function createElement1Action( Request $request )
+	{
+		$element = new Element();
+		$form = $this->createForm(ElementType::class, $element);
+
+		$session = $request->getSession();
+		$order = $session->get( 'customer', null );
+
+		$form->handleRequest( $request );
+
+		$form->handleRequest( $request );
+
+		if ( $form->isSubmitted() && $form->isValid() ) {
+			$element = $form->getData();
+			var_dump( $element );
+			$em = $this->getDoctrine()->getManager();
+			$em->persist( $element );
+//            $em->flush();
+
+			$session = $request->getSession();
+			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
+
+			return $this->redirectToRoute( 'elementMain' );
+		}
+
+		return $this->render( 'StolarzBundle::createElement1.html.twig', array(
+			'form' => $form->createView(),
+			'order' => $order ) );
 	}
 
 	/**

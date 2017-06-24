@@ -2,6 +2,7 @@
 
 namespace StolarzBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,9 +22,23 @@ class ElementType extends AbstractType
 			->add('widthEdge1')
 			->add('widthEdge2')
 			->add('rotatable')
-			->add('order')
-			->add('material')
-			->add('edge');
+//			->add('material', CollectionType::class, array(
+//                'label' => "Materiał: ",
+//                'entry_type' => EntityType::class,
+//                'entry_options' => array(
+//                    'class' => 'StolarzBundle:Material',
+//                    'choice_label' => 'name'
+//                ),
+//                'allow_add' => true,
+//                'prototype' => true
+//            ))
+			->add( 'material', EntityType::class, array(
+				'class' => 'StolarzBundle:Material',
+				'label' => 'Materiał: ',
+				'choice_label' => 'name'
+			) )
+			->add( 'Dodaj', 'submit' )
+		;
     }
     
     /**
