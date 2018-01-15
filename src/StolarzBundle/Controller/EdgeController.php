@@ -62,7 +62,7 @@ class EdgeController extends Controller
 			return $this->redirectToRoute( 'edgeMain' );
 		}
 
-		return $this->render( 'StolarzBundle::createEdge.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::edgeCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 
 	/**
