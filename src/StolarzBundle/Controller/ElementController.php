@@ -33,6 +33,7 @@ class ElementController extends Controller
 
 		$session = $request->getSession();
 		$order = $session->get( 'customer', null );
+
 //        $session->set('confirmation', null);
 //        $exist = $session->get('exist', null);
 //        $session->set('exist', null);
@@ -50,7 +51,7 @@ class ElementController extends Controller
 	}
 
 	/**
-	 * @Route("/element/create1", name="createElement1")
+	 * @Route("/create1", name="createElement1")
 	 */
 	public function createElement1Action( Request $request )
 	{
@@ -81,7 +82,7 @@ class ElementController extends Controller
 	}
 
 	/**
-	 * @Route("/element/create", name="createElement")
+	 * @Route("/create", name="createElement")
 	 */
 	public function createElementAction( Request $request )
 	{
