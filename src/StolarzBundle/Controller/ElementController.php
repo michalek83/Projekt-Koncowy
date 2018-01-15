@@ -75,7 +75,7 @@ class ElementController extends Controller
 			return $this->redirectToRoute( 'elementMain' );
 		}
 
-		return $this->render( 'StolarzBundle::createElement1.html.twig', array(
+		return $this->render( 'StolarzBundle::elementCreate1.html.twig', array(
 			'form' => $form->createView(),
 			'order' => $order ) );
 	}
@@ -146,7 +146,7 @@ class ElementController extends Controller
 		$session = $request->getSession();
 		$order = $session->get( 'customer', null );
 
-		return $this->render( 'StolarzBundle::createElement.html.twig', array(
+		return $this->render( 'StolarzBundle::elementCreate.html.twig', array(
 			'form' => $form->createView(),
 			'order' => $order ) );
 	}

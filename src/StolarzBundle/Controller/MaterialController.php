@@ -62,7 +62,7 @@ class MaterialController extends Controller
 			return $this->redirectToRoute( 'materialMain' );
 		}
 
-		return $this->render( 'StolarzBundle::createMaterial.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::materialCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 
     /**

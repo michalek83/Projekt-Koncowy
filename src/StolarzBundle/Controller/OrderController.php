@@ -37,6 +37,6 @@ class OrderController extends Controller
 			return $this->redirectToRoute( 'elementMain' );
 		}
 
-		return $this->render( 'StolarzBundle::createOrder.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::orderCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 }
