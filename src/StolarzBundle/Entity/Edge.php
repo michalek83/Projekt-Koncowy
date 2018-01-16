@@ -13,14 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Edge
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Element", mappedBy="edge")
-     */
-    private $element;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="edge")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

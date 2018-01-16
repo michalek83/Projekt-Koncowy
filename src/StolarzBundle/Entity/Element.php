@@ -19,14 +19,29 @@ class Element
     private $order;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Material", inversedBy="element")
+     * @ORM\ManyToOne(targetEntity="Material", inversedBy="id")
      */
     private $material;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Edge", inversedBy="element")
+     * @ORM\ManyToOne(targetEntity="Edge", inversedBy="id")
      */
-    private $edge;
+    private $edgeLenght1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Edge", inversedBy="id")
+     */
+    private $edgeLenght2;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Edge", inversedBy="id")
+     */
+    private $edgeWidth1;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Edge", inversedBy="id")
+     */
+    private $edgeWidth2;
 
     /**
      * @var int
@@ -383,5 +398,115 @@ class Element
     public function getEdge()
     {
         return $this->edge;
+    }
+
+    /**
+     * Set material
+     *
+     * @param \StolarzBundle\Entity\Material $material
+     *
+     * @return Element
+     */
+    public function setMaterial(\StolarzBundle\Entity\Material $material = null)
+    {
+        $this->material = $material;
+
+        return $this;
+    }
+
+    /**
+     * Set edgeLenght1
+     *
+     * @param \StolarzBundle\Entity\Edge $edgeLenght1
+     *
+     * @return Element
+     */
+    public function setEdgeLenght1(\StolarzBundle\Entity\Edge $edgeLenght1 = null)
+    {
+        $this->edgeLenght1 = $edgeLenght1;
+
+        return $this;
+    }
+
+    /**
+     * Get edgeLenght1
+     *
+     * @return \StolarzBundle\Entity\Edge
+     */
+    public function getEdgeLenght1()
+    {
+        return $this->edgeLenght1;
+    }
+
+    /**
+     * Set edgeLenght2
+     *
+     * @param \StolarzBundle\Entity\Edge $edgeLenght2
+     *
+     * @return Element
+     */
+    public function setEdgeLenght2(\StolarzBundle\Entity\Edge $edgeLenght2 = null)
+    {
+        $this->edgeLenght2 = $edgeLenght2;
+
+        return $this;
+    }
+
+    /**
+     * Get edgeLenght2
+     *
+     * @return \StolarzBundle\Entity\Edge
+     */
+    public function getEdgeLenght2()
+    {
+        return $this->edgeLenght2;
+    }
+
+    /**
+     * Set edgeWidth1
+     *
+     * @param \StolarzBundle\Entity\Edge $edgeWidth1
+     *
+     * @return Element
+     */
+    public function setEdgeWidth1(\StolarzBundle\Entity\Edge $edgeWidth1 = null)
+    {
+        $this->edgeWidth1 = $edgeWidth1;
+
+        return $this;
+    }
+
+    /**
+     * Get edgeWidth1
+     *
+     * @return \StolarzBundle\Entity\Edge
+     */
+    public function getEdgeWidth1()
+    {
+        return $this->edgeWidth1;
+    }
+
+    /**
+     * Set edgeWidth2
+     *
+     * @param \StolarzBundle\Entity\Edge $edgeWidth2
+     *
+     * @return Element
+     */
+    public function setEdgeWidth2(\StolarzBundle\Entity\Edge $edgeWidth2 = null)
+    {
+        $this->edgeWidth2 = $edgeWidth2;
+
+        return $this;
+    }
+
+    /**
+     * Get edgeWidth2
+     *
+     * @return \StolarzBundle\Entity\Edge
+     */
+    public function getEdgeWidth2()
+    {
+        return $this->edgeWidth2;
     }
 }

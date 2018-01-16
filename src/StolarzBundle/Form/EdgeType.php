@@ -13,9 +13,13 @@ class EdgeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('thickness')->add('description')->add('element');
+        $builder
+            ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
+            ->add( 'thickness', 'number', array( 'required' => true, 'label' => 'Grubość: ', 'scale' => 2 ) )
+            ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
+            ;
     }
-    
+
     /**
      * {@inheritdoc}
      */

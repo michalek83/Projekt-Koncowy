@@ -2,8 +2,6 @@
 
 namespace StolarzBundle\Form;
 
-use StolarzBundle\Entity\Material;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,20 +14,18 @@ class MaterialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add( 'material', EntityType::class, array(
-				'class' => 'StolarzBundle:Material',
-//				'label' => 'Materiał: ',
-				'choice_label' => 'name',
-			) );
+            ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
+            ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
+        ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Material::class,
+            'data_class' => 'StolarzBundle\Entity\Material'
         ));
     }
 

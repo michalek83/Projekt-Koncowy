@@ -13,8 +13,16 @@ class OrderType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('customer');
-    }/**
+        $builder
+            ->add( 'customer', 'entity', array(
+                'class' => 'StolarzBundle:Customer',
+                'label' => 'Klient: ',
+                'choice_label' => 'name'
+            ) )
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

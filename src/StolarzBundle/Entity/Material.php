@@ -13,14 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Material
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Element", mappedBy="material")
-     */
-    private $element;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="material")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

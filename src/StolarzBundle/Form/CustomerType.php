@@ -13,8 +13,14 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('address')->add('description');
-    }/**
+        $builder
+            ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
+            ->add( 'address', 'text', array( 'required' => true, 'label' => 'Adres: ' ) )
+            ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
+            ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
