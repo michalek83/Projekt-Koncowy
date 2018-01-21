@@ -34,19 +34,19 @@ class ElementController extends Controller
 		$session = $request->getSession();
 		$order = $session->get( 'customer', null );
 
-//        $session->set('confirmation', null);
-//        $exist = $session->get('exist', null);
-//        $session->set('exist', null);
-//        $deleted = $session->get('deleted', null);
-//        $session->set('deleted', null);
+        $session->set('confirmation', null);
+        $exist = $session->get('exist', null);
+        $session->set('exist', null);
+        $deleted = $session->get('deleted', null);
+        $session->set('deleted', null);
 
 		return $this->render( 'StolarzBundle::elementMain.html.twig',
 			array(
-//                'confirmation' => $confirmation,
+                'confirmation' => $confirmation,
 				'allElements' => $allElements,
-				'order' => $order
-//                'exist' => $exist,
-//                'deleted' => $deleted
+				'order' => $order,
+                'exist' => $exist,
+                'deleted' => $deleted
 			) );
 	}
 

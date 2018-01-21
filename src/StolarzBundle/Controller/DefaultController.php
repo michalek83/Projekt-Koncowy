@@ -24,25 +24,25 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/", name="main")
 	 */
-	public function mainAction()
+	public function mainAction( Request $request )
 	{
 		$orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
 		$allOrders = $orderRepository->findAll();
-//
-//        $session = $request->getSession();
-//        $confirmation = $session->get('confirmation', null);
-//        $session->set('confirmation', null);
-//        $exist = $session->get('exist', null);
-//        $session->set('exist', null);
-//        $deleted = $session->get('deleted', null);
-//        $session->set('deleted', null);
+
+        $session = $request->getSession();
+        $confirmation = $session->get('confirmation', null);
+        $session->set('confirmation', null);
+        $exist = $session->get('exist', null);
+        $session->set('exist', null);
+        $deleted = $session->get('deleted', null);
+        $session->set('deleted', null);
 
 		return $this->render( 'StolarzBundle::main.html.twig',
 			array(
-//                'confirmation' => $confirmation,
+                'confirmation' => $confirmation,
 				'allOrders' => $allOrders,
-//                'exist' => $exist,
-//                'deleted' => $deleted
+                'exist' => $exist,
+                'deleted' => $deleted
 			) );
 	}
 }
