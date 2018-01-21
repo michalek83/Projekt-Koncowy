@@ -3,6 +3,7 @@
 namespace StolarzBundle\Controller;
 
 use StolarzBundle\Entity\Material;
+use StolarzBundle\Form\MaterialType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,31 +41,27 @@ class MaterialController extends Controller
      * @Route("/create", name="createMaterial")
      */
     public function createMaterialAction( Request $request )
-	{
-		$material = new Material();
-		$form = $this->createFormBuilder( $material )
-			->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
-			->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-			->add( 'save', 'submit', array( 'label' => 'Stwórz materiał' ) )
-			->getForm();
+    {
+        $material = new Material();
+        $form = $this->createForm(MaterialType::class, $material);
 
-		$form->handleRequest( $request );
+        $form->handleRequest( $request );
 
-		if ( $form->isSubmitted() ) {
-			$material = $form->getData();
-			$em = $this->getDoctrine()->getManager();
-			$em->persist( $material );
-			$em->flush();
+        if ( $form->isSubmitted() ) {
+            $material = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $material );
+            $em->flush();
 
-			$session = $request->getSession();
-			$confirmation = "Materiał " . $material->getName() . " zapisano poprawnie.";
-			$session->set( 'confirmation', "$confirmation" );
+            $session = $request->getSession();
+            $confirmation = "Materiał " . $material->getName() . " zapisano poprawnie.";
+            $session->set( 'confirmation', "$confirmation" );
 
-			return $this->redirectToRoute( 'materialMain' );
-		}
+            return $this->redirectToRoute( 'materialMain' );
+        }
 
-		return $this->render( 'StolarzBundle::materialCreate.html.twig', array( 'form' => $form->createView() ) );
-	}
+        return $this->render( 'StolarzBundle::materialCreate.html.twig', array( 'form' => $form->createView() ) );
+    }
 
     /**
      * @Route("/delete/{id}", name="deleteMaterial", requirements={"id": "\d+"})

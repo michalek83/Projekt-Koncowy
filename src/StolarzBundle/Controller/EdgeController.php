@@ -46,7 +46,7 @@ class EdgeController extends Controller
 			->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
 			->add( 'thickness', 'number', array( 'required' => true, 'label' => 'Grubość: ', 'scale' => 2 ) )
 			->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-			->add( 'save', 'submit', array( 'label' => 'Stwórz materiał' ) )
+			->add( 'save', 'submit', array( 'label' => 'Stwórz obrzeże' ) )
 			->getForm();
 
 		$form->handleRequest( $request );
