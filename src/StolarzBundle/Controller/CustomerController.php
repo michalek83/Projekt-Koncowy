@@ -19,16 +19,18 @@ class CustomerController extends Controller
 	{
 		$customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
 		$allCustomers = $customerRepository->findBy( [], [ 'name' => 'ASC' ] );
+
 		$session = $request->getSession();
-		$confirmation = $session->get( 'confirmation', null );
-		$session->set( 'confirmation', null );
-		$exist = $session->get( 'exist', null );
+		$confirmation = $session->get( 'confirmation' );        // Potwierdzenie stworzenia klienta
+		$session->set( 'confirmation' , null );
+		$exist = $session->get( 'exist' );                      // Klient istnieje
 		$session->set( 'exist', null );
-		$deleted = $session->get( 'deleted', null );
+		$deleted = $session->get( 'deleted' );                  // Klienta skasowano
 		$session->set( 'deleted', null );
 
 		return $this->render( 'StolarzBundle::customerMain.html.twig',
-			array( 'confirmation' => $confirmation,
+			array(
+			    'confirmation' => $confirmation,
 				'allCustomers' => $allCustomers,
 				'exist' => $exist,
 				'deleted' => $deleted ) );

@@ -21,15 +21,16 @@ class MaterialController extends Controller
 		$allMaterials = $materialRepository->findBy( [], [ 'name' => 'ASC' ] );
 
 		$session = $request->getSession();
-		$confirmation = $session->get( 'confirmation', null );
+		$confirmation = $session->get( 'confirmation' );                // Potwierdzenie stworzenia materiału
 		$session->set( 'confirmation', null );
-		$exist = $session->get( 'exist', null );
+		$exist = $session->get( 'exist' );                              // Materiał istnieje
 		$session->set( 'exist', null );
-		$deleted = $session->get( 'deleted', null );
+		$deleted = $session->get( 'deleted' );                          // Materiał skasowano
 		$session->set( 'deleted', null );
 
 		return $this->render( 'StolarzBundle::materialMain.html.twig',
-			array( 'confirmation' => $confirmation,
+			array(
+			    'confirmation' => $confirmation,
 				'allMaterials' => $allMaterials,
 				'exist' => $exist,
 				'deleted' => $deleted ) );
@@ -67,7 +68,6 @@ class MaterialController extends Controller
 
     /**
      * @Route("/delete/{id}", name="deleteMaterial", requirements={"id": "\d+"})
-
      */
     public function deleteMaterialAction( $id, Request $request )
     {

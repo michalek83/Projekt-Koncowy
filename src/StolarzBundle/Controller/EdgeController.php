@@ -19,16 +19,18 @@ class EdgeController extends Controller
 	{
 		$edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
 		$allEdges = $edgeRepository->findBy( [], [ 'name' => 'ASC', 'thickness' => 'DESC' ] );
+
 		$session = $request->getSession();
-		$confirmation = $session->get( 'confirmation', null );
+		$confirmation = $session->get( 'confirmation');                 // Potwierdzenie stworzenia obrzeża
 		$session->set( 'confirmation', null );
-		$exist = $session->get( 'exist', null );
+		$exist = $session->get( 'exist');                               // Obrzeże istnieje
 		$session->set( 'exist', null );
-		$deleted = $session->get( 'deleted', null );
+		$deleted = $session->get( 'deleted');                           // Obrzeże skasowano
 		$session->set( 'deleted', null );
 
 		return $this->render( 'StolarzBundle::edgeMain.html.twig',
-			array( 'confirmation' => $confirmation,
+			array(
+			    'confirmation' => $confirmation,
 				'allEdges' => $allEdges,
 				'exist' => $exist,
 				'deleted' => $deleted ) );

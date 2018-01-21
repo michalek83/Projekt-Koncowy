@@ -10,6 +10,8 @@
         {#{{ confirmation }}<br>#}
     {#{% endif %}#}
 
+    {{ dump(exist) }}
+
     {#{% if exist is not null %}#}
         {#<font color = "red"><b>Materiał o id {{ exist }} nie istnieje.</b></font><br>#}
     {#{% endif %}#}

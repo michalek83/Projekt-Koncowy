@@ -32,12 +32,13 @@ class ElementController extends Controller
 		$allElements = $elementRepository->findAll();
 
 		$session = $request->getSession();
-		$order = $session->get( 'customer', null );
+		$order = $session->get('customer');
 
+		$confirmation = $session->get('confirmation');
         $session->set('confirmation', null);
-        $exist = $session->get('exist', null);
+        $exist = $session->get('exist');
         $session->set('exist', null);
-        $deleted = $session->get('deleted', null);
+        $deleted = $session->get('deleted');
         $session->set('deleted', null);
 
 		return $this->render( 'StolarzBundle::elementMain.html.twig',

@@ -30,11 +30,11 @@ class DefaultController extends Controller
 		$allOrders = $orderRepository->findAll();
 
         $session = $request->getSession();
-        $confirmation = $session->get('confirmation', null);
+        $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
         $session->set('confirmation', null);
-        $exist = $session->get('exist', null);
+        $exist = $session->get('exist', null);                  // Zamówenie istnieje
         $session->set('exist', null);
-        $deleted = $session->get('deleted', null);
+        $deleted = $session->get('deleted', null);              // Zamówienie skasowano
         $session->set('deleted', null);
 
 		return $this->render( 'StolarzBundle::main.html.twig',
