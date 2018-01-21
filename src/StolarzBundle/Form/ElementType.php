@@ -2,9 +2,14 @@
 
 namespace StolarzBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use StolarzBundle\Entity\Edge;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+//use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ElementType extends AbstractType
 {
@@ -14,51 +19,47 @@ class ElementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('order')
-            ->add('material')
-            ->add('lenght')
-            ->add('width')
-            ->add('quantity')
-            ->add('lenghtEdge1')
-            ->add( 'edgeLenght1', 'entity', array(
+            ->add('material', EntityType::class, array(
+                'class' => 'StolarzBundle:Material',
+                'choice_label' => 'name',
+                'label' => 'Materiał: '
+            ))
+            ->add('quantity', NumberType::class, ['label' => 'Ilość: '])
+            ->add('lenght', NumberType::class, ['label' => 'Długość: '])
+            ->add('edgeLenght1', EntityType::class, array(
                 'class' => 'StolarzBundle:Edge',
-                'label' => 'Okleina po długości 1: ',
-                'choice_label' => 'name'
-            ) )
-            ->add('lenghtEdge2')
-            ->add( 'edgeLenght2', 'entity', array(
+                'choice_label' => 'name',
+                'label' => 'Obrzeże po długości 1'
+            ))                                                                  //Dopisać skale i zaokrąglanie do pol z numerami
+            ->add('edgeLenght2', EntityType::class, array(
                 'class' => 'StolarzBundle:Edge',
-                'label' => 'Okleina po długości 2: ',
-                'choice_label' => 'name'
-            ) )
-            ->add('widthEdge1')
-            ->add( 'edgeWidth1', 'entity', array(
+                'choice_label' => 'name',
+                'label' => 'Obrzeże po długości 2'
+            ))
+            ->add('width', NumberType::class, ['label' => 'Szerokość: '])
+            ->add('edgeWidth1', EntityType::class, array(
                 'class' => 'StolarzBundle:Edge',
-                'label' => 'Okleina po szerokości 1: ',
-                'choice_label' => 'name'
-            ) )
-            ->add('widthEdge2')
-            ->add( 'edgeWidth2', 'entity', array(
+                'choice_label' => 'name',
+                'label' => 'Obrzeże po szerokości 1'
+            ))
+            ->add('edgeWidth2', EntityType::class, array(
                 'class' => 'StolarzBundle:Edge',
-                'label' => 'Okleina po szerokości 2: ',
-                'choice_label' => 'name'
-            ) )
-            ->add('rotatable')
-
-            ->add( 'lenght', 'number', array( 'label' => 'Długość: ' ) )
-            ->add( 'lenghtEdge1', 'checkbox', array( 'required' => false, 'label' => 'Okleina po długości 1: ' ) )
-            ->add( 'lenghtEdge2', 'checkbox', array( 'required' => false, 'label' => 'Okleina po długości 2: ' ) )
-            ->add( 'width', 'number', array( 'label' => 'Szerokość: ' ) )
-            ->add( 'widthEdge1', 'checkbox', array( 'required' => false, 'label' => 'Okleina po szerokości 1: ' ) )
-            ->add( 'widthEdge2', 'checkbox', array( 'required' => false, 'label' => 'Okleina po szerokości 2: ' ) )
-            ->add( 'quantity', 'number', array( 'label' => 'Ilość: ' ) )
-            ->add( 'rotatable', 'checkbox', array( 'required' => false, 'label' => 'Obrotowo?: ' ) )
-
+                'choice_label' => 'name',
+                'label' => 'Obrzeże po szerokości 2'
+            ))
+            ->add('rotatable', ChoiceType::class, array (
+                'label' => 'Obrotowo: ',
+                'choices' => array(
+                    'Tak' => true,
+                    'Nie' => false,
+                ),
+                'choices_as_values' => true,
+            ))
+            ->add( 'Dodaj', 'submit' )
+			->getForm()
             ;
     }
-
-
-
+    
     /**
      * {@inheritdoc}
      */

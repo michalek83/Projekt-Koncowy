@@ -76,34 +76,6 @@ class Element
     /**
      * @var bool
      *
-     * @ORM\Column(name="lenghtEdge1", type="boolean")
-     */
-    private $lenghtEdge1;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="lenghtEdge2", type="boolean")
-     */
-    private $lenghtEdge2;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="widthEdge1", type="boolean")
-     */
-    private $widthEdge1;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="widthEdge2", type="boolean")
-     */
-    private $widthEdge2;
-
-    /**
-     * @var bool
-     *
      * @ORM\Column(name="rotatable", type="boolean")
      */
     private $rotatable;
@@ -194,98 +166,6 @@ class Element
     public function getQuantity()
     {
         return $this->quantity;
-    }
-
-    /**
-     * Set lenghtEdge1
-     *
-     * @param boolean $lenghtEdge1
-     * @return Element
-     */
-    public function setLenghtEdge1($lenghtEdge1)
-    {
-        $this->lenghtEdge1 = $lenghtEdge1;
-
-        return $this;
-    }
-
-    /**
-     * Get lenghtEdge1
-     *
-     * @return boolean 
-     */
-    public function getLenghtEdge1()
-    {
-        return $this->lenghtEdge1;
-    }
-
-    /**
-     * Set lenghtEdge2
-     *
-     * @param boolean $lenghtEdge2
-     * @return Element
-     */
-    public function setLenghtEdge2($lenghtEdge2)
-    {
-        $this->lenghtEdge2 = $lenghtEdge2;
-
-        return $this;
-    }
-
-    /**
-     * Get lenghtEdge2
-     *
-     * @return boolean 
-     */
-    public function getLenghtEdge2()
-    {
-        return $this->lenghtEdge2;
-    }
-
-    /**
-     * Set widthEdge1
-     *
-     * @param boolean $widthEdge1
-     * @return Element
-     */
-    public function setWidthEdge1($widthEdge1)
-    {
-        $this->widthEdge1 = $widthEdge1;
-
-        return $this;
-    }
-
-    /**
-     * Get widthEdge1
-     *
-     * @return boolean 
-     */
-    public function getWidthEdge1()
-    {
-        return $this->widthEdge1;
-    }
-
-    /**
-     * Set widthEdge2
-     *
-     * @param boolean $widthEdge2
-     * @return Element
-     */
-    public function setWidthEdge2($widthEdge2)
-    {
-        $this->widthEdge2 = $widthEdge2;
-
-        return $this;
-    }
-
-    /**
-     * Get widthEdge2
-     *
-     * @return boolean 
-     */
-    public function getWidthEdge2()
-    {
-        return $this->widthEdge2;
     }
 
     /**
