@@ -3,6 +3,7 @@
 namespace StolarzBundle\Controller;
 
 use StolarzBundle\Entity\Edge;
+use StolarzBundle\Form\EdgeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +43,7 @@ class EdgeController extends Controller
 	public function createEdgeAction( Request $request )
 	{
 		$edge = new Edge();
-		$form = $this->createFormBuilder( $edge )
-			->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
-			->add( 'thickness', 'number', array( 'required' => true, 'label' => 'Grubość: ', 'scale' => 2 ) )
-			->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-			->add( 'save', 'submit', array( 'label' => 'Stwórz obrzeże' ) )
-			->getForm();
+		$form = $this->createForm( EdgeType::class, $edge );
 
 		$form->handleRequest( $request );
 

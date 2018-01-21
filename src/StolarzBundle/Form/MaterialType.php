@@ -18,7 +18,7 @@ class MaterialType extends AbstractType
             ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
             ->add( 'save', 'submit', array( 'label' => 'Stwórz materiał' ) )
             ->getForm()
-        ;
+            ;
     }
 
     /**
