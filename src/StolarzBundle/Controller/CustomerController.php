@@ -3,6 +3,7 @@
 namespace StolarzBundle\Controller;
 
 use StolarzBundle\Entity\Customer;
+use StolarzBundle\Form\CustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +43,7 @@ class CustomerController extends Controller
 	public function createCustomerAction( Request $request )
 	{
 		$customer = new Customer();
-		$form = $this->createFormBuilder( $customer )
-			->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
-			->add( 'address', 'text', array( 'required' => true, 'label' => 'Adres: ' ) )
-			->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-			->add( 'save', 'submit', array( 'label' => 'Stwórz klienta' ) )
-			->getForm();
+		$form = $this->createForm( CustomerType::class, $customer );
 
 		$form->handleRequest( $request );
 

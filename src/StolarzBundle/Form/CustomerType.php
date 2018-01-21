@@ -17,6 +17,8 @@ class CustomerType extends AbstractType
             ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
             ->add( 'address', 'text', array( 'required' => true, 'label' => 'Adres: ' ) )
             ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
+            ->add( 'save', 'submit', array( 'label' => 'Stwórz klienta' ) )
+            ->getForm()
             ;
     }
 
