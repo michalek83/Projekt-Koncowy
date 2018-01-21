@@ -3,6 +3,7 @@
 namespace StolarzBundle\Controller;
 
 use StolarzBundle\Entity\Order;
+use StolarzBundle\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,7 @@ class OrderController extends Controller
 	public function createOrderAction( Request $request )
 	{
 		$order = new Order();
-		$form = $this->createFormBuilder( $order )
-			->add( 'customer', 'entity', array(
-				'class' => 'StolarzBundle:Customer',
-				'label' => 'Klient: ',
-				'choice_label' => 'name'
-			) )
-			->add( 'Wybierz', 'submit' )
-			->getForm();
+		$form = $this->createForm( OrderType::class, $order );
 
 		$form->handleRequest( $request );
 

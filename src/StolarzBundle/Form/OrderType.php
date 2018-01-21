@@ -19,6 +19,8 @@ class OrderType extends AbstractType
                 'label' => 'Klient: ',
                 'choice_label' => 'name'
             ) )
+            ->add( 'Wybierz', 'submit' )
+            ->getForm()
         ;
     }
 
