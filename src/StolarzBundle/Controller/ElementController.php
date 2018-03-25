@@ -65,7 +65,7 @@ class ElementController extends Controller
 			$session = $request->getSession();
 			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
 
-			return $this->redirectToRoute( 'elementMain' );
+//			return $this->redirectToRoute( 'elementMain' );
 		}
 
 		$session = $request->getSession();
