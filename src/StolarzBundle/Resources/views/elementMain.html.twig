@@ -24,9 +24,10 @@
 
     <table border = "1" rules = "all">
         <tr>
+            <td>Jakie zamówienie</td>
             <td>Id</td>
+            <td>Sztuk</td>
             <td>Materiał</td>
-            <td>Obrzeże</td>
             <td>Długość</td>
             <td>Obrzeże 1</td>
             <td>Obrzeże 2</td>
@@ -43,17 +44,16 @@
             {% for element in allElements %}
                 {% set i = i + 1 %}
                 <tr>
+                    <td>{{ dump(element.order) }}</td>
                     <td>{{ i }}</td>
-                    {#<td>{{ dump(element.material) }}</td>#}
-                    {#<td>{{ dump(element.edge) }}</td>#}
+                    <td>{{ element.quantity }}</td>
                     <td>{{ element.material }}</td>
-                    <td>{{ element.edge }}</td>
                     <td>{{ element.lenght }}</td>
-                    <td>{{ element.lenghtEdge1 }}</td>
-                    <td>{{ element.lenghtEdge2 }}</td>
+                    <td>{{ allEdges[element.edgeLenght1.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeLenght2.id - 1].name }}</td>
                     <td>{{ element.width }}</td>
-                    <td>{{ element.widthEdge1 }}</td>
-                    <td>{{ element.widthEdge2 }}</td>
+                    <td>{{ allEdges[element.edgeWidth1.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeWidth2.id - 1].name }}</td>
                     <td>{{ element.rotatable }}</td>
                     {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
                 </tr>

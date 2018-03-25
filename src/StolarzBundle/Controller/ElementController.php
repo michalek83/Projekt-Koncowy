@@ -22,6 +22,9 @@ class ElementController extends Controller
 		$elementRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Element' );
 		$allElements = $elementRepository->findAll();
 
+        $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
+        $allEdges = $edgeRepository->findAll();
+
 		$session = $request->getSession();
 		$order = $session->get('customer');
 
@@ -36,6 +39,7 @@ class ElementController extends Controller
 			array(
                 'confirmation' => $confirmation,
 				'allElements' => $allElements,
+				'allEdges' => $allEdges,
 				'order' => $order,
                 'exist' => $exist,
                 'deleted' => $deleted
@@ -61,7 +65,7 @@ class ElementController extends Controller
 			$session = $request->getSession();
 			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
 
-//			return $this->redirectToRoute( 'elementMain' );
+			return $this->redirectToRoute( 'elementMain' );
 		}
 
 		$session = $request->getSession();

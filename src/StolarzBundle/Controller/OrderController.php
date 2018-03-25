@@ -13,6 +13,32 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OrderController extends Controller
 {
+
+    /**
+     * @Route("/", name="orderMain")
+     */
+    public function mainAction( Request $request )
+    {
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
+        $allOrdersByCustomerId = $orderRepository->findAll();
+
+        $session = $request->getSession();
+        $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
+        $session->set('confirmation', null);
+        $exist = $session->get('exist', null);                  // Zamówenie istnieje
+        $session->set('exist', null);
+        $deleted = $session->get('deleted', null);              // Zamówienie skasowano
+        $session->set('deleted', null);
+
+        return $this->render( 'StolarzBundle::orderMain.html.twig',
+            array(
+                'confirmation' => $confirmation,
+                'allOrdersByCustomerId' => $allOrdersByCustomerId,
+                'exist' => $exist,
+                'deleted' => $deleted
+            ) );
+    }
+
 	/**
 	 * @Route("/create", name="createOrder")
 	 */
