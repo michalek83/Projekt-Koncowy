@@ -1,0 +1,34 @@
+{% extends "StolarzBundle:Default:base.html.twig" %}
+
+{% block title %}Formularz zamówienia{% endblock %}
+
+{% block content %}
+    <h1>Witaj w formularzu zamówienia :)</h1>
+    <p>Order Main Template}</p>
+    <li><a href="{{ path('createOrder') }}">Dodaj zamówienie</a></li>
+
+    <h5>Lista zamówień klienta [zakomentowana nazwa klienta] {#{{ order.name }}#} : </h5>
+
+    <table border = "1" rules = "all">
+        <tr>
+            <td>Id</td>
+            <td>Nr zamówienia</td>
+            <td>Data zamówienia</td>
+        </tr>
+        {% set i = 0 %}
+        {% for order in allOrdersByCustomerId %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ order.name }}</td>
+                {#<td><a href="{{ path('deleteOrder', {'id':order.id}) }}">Usuń zamówienie</a></td>#}
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
