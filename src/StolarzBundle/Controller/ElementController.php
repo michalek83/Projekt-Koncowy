@@ -60,6 +60,9 @@ class ElementController extends Controller
 			$element = $form->getData();
 			$em = $this->getDoctrine()->getManager();
 			$em->persist( $element );
+//			var_dump($element);
+//            var_dump($em);
+//			die;
 //            $em->flush();
 
 			$session = $request->getSession();

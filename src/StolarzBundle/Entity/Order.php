@@ -44,6 +44,7 @@ class Order
     public function __construct()
     {
         $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderDateTime = date_create();
     }
 
     /**
@@ -110,22 +111,6 @@ class Order
     public function getCustomer()
     {
         return $this->customer;
-    }
-
-    /**
-     * Set orderDateTime
-     *
-     * @param \DateTime $orderDateTime
-     *
-     * @return Order
-     */
-    public function setOrderDateTime()
-    {
-        $orderDateTime = date_create();
-        var_dump($orderDateTime);die;
-        $this->orderDateTime = $orderDateTime;
-
-        return $this;
     }
 
     /**
