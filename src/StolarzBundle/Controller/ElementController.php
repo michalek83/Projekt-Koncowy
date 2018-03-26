@@ -60,12 +60,15 @@ class ElementController extends Controller
 			$element = $form->getData();
 			$em = $this->getDoctrine()->getManager();
 			$em->persist( $element );
+//			var_dump($element);
+//            var_dump($em);
+//			die;
 //            $em->flush();
 
 			$session = $request->getSession();
 			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
 
-			return $this->redirectToRoute( 'elementMain' );
+//			return $this->redirectToRoute( 'elementMain' );
 		}
 
 		$session = $request->getSession();

@@ -28,6 +28,8 @@ class DefaultController extends Controller
 	{
 		$orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
 		$allOrders = $orderRepository->findAll();
+        $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
+        $allCustomers = $customerRepository->findAll();
 
         $session = $request->getSession();
         $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
@@ -41,6 +43,7 @@ class DefaultController extends Controller
 			array(
                 'confirmation' => $confirmation,
 				'allOrders' => $allOrders,
+                'allCustomers' => $allCustomers,
                 'exist' => $exist,
                 'deleted' => $deleted
 			) );

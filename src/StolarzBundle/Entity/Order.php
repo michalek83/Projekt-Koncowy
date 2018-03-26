@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Order
  *
- * @ORM\Table(name="orderElements")
+ * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="StolarzBundle\Repository\OrderRepository")
  */
 class Order
@@ -21,6 +21,13 @@ class Order
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="order")
      */
     private $customer;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="orderDateTime", type="datetime")
+     */
+    private $orderDateTime;
 
     /**
      * @var int
@@ -37,6 +44,7 @@ class Order
     public function __construct()
     {
         $this->element = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderDateTime = date_create();
     }
 
     /**
@@ -103,5 +111,15 @@ class Order
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Get orderDateTime
+     *
+     * @return \DateTime
+     */
+    public function getOrderDateTime()
+    {
+        return $this->orderDateTime;
     }
 }

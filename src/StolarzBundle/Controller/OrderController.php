@@ -49,14 +49,32 @@ class OrderController extends Controller
 
 		$form->handleRequest( $request );
 
-		if ( $form->isSubmitted() ) {
+		if ( $form->isSubmitted() && $form->isValid() ) {
 			$customer = $form->getData();
 			$session = $request->getSession();
 			$session->set( 'customer', $customer );
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $order );
+            $em->flush();
 
 			return $this->redirectToRoute( 'elementMain' );
 		}
 
 		return $this->render( 'StolarzBundle::orderCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
+
+    /**
+     * @Route("/showOrderById/{id}", name="orderShowById", requirements={"id": "\d+"})
+     */
+    public function showOrderByIdAction( $id )
+    {
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
+        $orderById = $orderRepository->findOneBy( ['id' => $id]);
+        $customerName = $orderById->getCustomer()->getName();
+
+//        var_dump($customerName);
+//        die;
+
+        return $this->render( 'StolarzBundle::orderShowById.html.twig', array('orderById' => $orderById) );
+    }
 }
