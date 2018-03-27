@@ -8,6 +8,10 @@
     <h5>Klient: {{ orderById.customer.name }}</h5>
 
     <table border = "1" rules = "all">
+        {% if orderById.element is empty %}
+            <font color="red"><b>Brak elementów w zamówieniu.</b></font>
+        {% else %}
+
         <tr>
             <td>Numer elementu</td>
             <td>Sztuk</td>
@@ -21,9 +25,6 @@
             <td>Obrotowo</td>
         </tr>
 
-        {#{% if allElements is empty %}#}
-            {#<font color="red"><b>Brak zamówień klienta {{ order.customer.name }} </b></font>#}
-        {#{% else %}#}
             {#{% set i = 0 %}#}
             {#{% for element in allElements %}#}
                 {#{% set i = i + 1 %}#}
@@ -42,7 +43,7 @@
                     {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
                 </tr>
             {#{% endfor %}#}
-        {#{% endif %}#}
+        {% endif %}
 
     </table>
 
