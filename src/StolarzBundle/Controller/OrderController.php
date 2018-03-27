@@ -62,19 +62,4 @@ class OrderController extends Controller
 
 		return $this->render( 'StolarzBundle::orderCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
-
-    /**
-     * @Route("/showOrderById/{id}", name="orderShowById", requirements={"id": "\d+"})
-     */
-    public function showOrderByIdAction( $id )
-    {
-        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
-        $orderById = $orderRepository->findOneBy( ['id' => $id]);
-        $customerName = $orderById->getCustomer()->getName();
-
-//        var_dump($customerName);
-//        die;
-
-        return $this->render( 'StolarzBundle::orderShowById.html.twig', array('orderById' => $orderById) );
-    }
 }
