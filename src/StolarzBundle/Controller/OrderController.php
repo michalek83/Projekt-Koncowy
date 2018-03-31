@@ -19,8 +19,9 @@ class OrderController extends Controller
      */
     public function mainAction( Request $request )
     {
+        // Ten route jest nieuzywany jak na razie
         $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
-        $allOrdersByCustomerId = $orderRepository->findAll();
+        $allOrders = $orderRepository->findAll();
 
         $session = $request->getSession();
         $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
@@ -32,8 +33,8 @@ class OrderController extends Controller
 
         return $this->render( 'StolarzBundle::orderMain.html.twig',
             array(
+                'allOrders' => $allOrders,
                 'confirmation' => $confirmation,
-                'allOrdersByCustomerId' => $allOrdersByCustomerId,
                 'exist' => $exist,
                 'deleted' => $deleted
             ) );
@@ -63,4 +64,22 @@ class OrderController extends Controller
 
 		return $this->render( 'StolarzBundle::orderCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
+
+    /**
+     * @Route("/showOrdersByCustomer/{customerId}", name="showOrdersByCustomerId", requirements={"customerId": "\d+"})
+     */
+    public function showOrdersByCustomerIdAction( $customerId, Request $request )
+    {
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
+        $allOrdersByCustomerId = $orderRepository->findBy(['customer' => $customerId]);
+
+        $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
+        $customer = $customerRepository->findOneBy(['id' => $customerId]);
+
+        return $this->render( 'StolarzBundle::showOrdersByCustomerId.html.twig',
+            array(
+                'allOrdersByCustomerId' => $allOrdersByCustomerId,
+                'customer' => $customer
+            ) );
+    }
 }

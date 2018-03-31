@@ -31,7 +31,7 @@
             {% set i = i + 1 %}
             <tr>
                 <td>{{ i }}</td>
-                <td>{{ customer.name }}</td>
+                <td><a href="{{ path('showOrdersByCustomerId',{'customerId':customer.id}) }}">{{ customer.name }}</a></td>
                 <td>{{ customer.address }}</td>
                 <td>{{ customer.description }}</td>
                 <td><a href="{{ path('deleteCustomer', {'id':customer.id}) }}">Usuń klienta</a></td>
