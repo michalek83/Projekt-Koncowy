@@ -23,8 +23,6 @@
             <tr>
                 <td>{{ i }}</td>
                 <td>{{ order.id }}</td>
-                {#<td><a href="{{ path('deleteOrder',    {'id':order.id}) }}">Usuń zamówienie</a></td>#}
-
                 <td>{{ allCustomers[order.customer.id - 1].name }}</td>
                 <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
                 <td>Wyślij</td>
