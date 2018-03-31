@@ -17,7 +17,7 @@
             {% set i = i + 1 %}
             <tr>
                 <td>{{ i }}</td>
-                <td>{{ order.id }}</td>
+                <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
                 <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
                 {#<td><a href="{{ path('deleteOrder', {'id':order.id}) }}">Usuń zamówienie</a></td>#}
             </tr>

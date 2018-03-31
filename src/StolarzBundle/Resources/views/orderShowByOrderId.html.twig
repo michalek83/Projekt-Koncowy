@@ -1,0 +1,59 @@
+{% extends "StolarzBundle:Default:base.html.twig" %}
+
+{% block title %}Zamówienie o ID: [WSTAWIC NR ZAMOWIENIA] {% endblock %}
+
+{% block content %}
+    <h1>Zamówienie o ID: {{ orderById.id }}</h1>
+
+    <h5>Klient: {{ orderById.customer.name }}</h5>
+
+    <table border = "1" rules = "all">
+        {% if orderById.element is empty %}
+            <font color="red"><b>Brak elementów w zamówieniu.</b></font>
+        {% else %}
+
+        <tr>
+            <td>Numer elementu</td>
+            <td>Sztuk</td>
+            <td>Materiał</td>
+            <td>Długość</td>
+            <td>Obrzeże 1</td>
+            <td>Obrzeże 2</td>
+            <td>Szerokość</td>
+            <td>Obrzeże 1</td>
+            <td>Obrzeże 2</td>
+            <td>Obrotowo</td>
+        </tr>
+
+            {% set i = 0 %}
+            {% for element in orderElements %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ element.quantity }}</td>
+                    <td>{{ element.material }}</td>
+                    <td>{{ element.lenght }}</td>
+                    <td>{{ allEdges[element.edgeLenght1.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeLenght2.id - 1].name }}</td>
+                    <td>{{ element.width }}</td>
+                    <td>{{ allEdges[element.edgeWidth1.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeWidth2.id - 1].name }}</td>
+                    <td>
+                        {% if element.rotatable == true %}
+                            Tak
+                        {% else %}
+                            Nie
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+    </table>
+
+
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

@@ -68,7 +68,7 @@ class OrderController extends Controller
     /**
      * @Route("/showOrdersByCustomer/{customerId}", name="showOrdersByCustomerId", requirements={"customerId": "\d+"})
      */
-    public function showOrdersByCustomerIdAction( $customerId, Request $request )
+    public function showOrdersByCustomerIdAction( $customerId )
     {
         $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
         $allOrdersByCustomerId = $orderRepository->findBy(['customer' => $customerId]);
@@ -80,6 +80,30 @@ class OrderController extends Controller
             array(
                 'allOrdersByCustomerId' => $allOrdersByCustomerId,
                 'customer' => $customer
+            ) );
+    }
+
+    /**
+     * @Route("/orderShowByOrderId/{orderId}", name="orderShowByOrderId", requirements={"orderId": "\d+"})
+     */
+    public function showOrderByOrderIdAction( $orderId )
+    {
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
+        $orderById = $orderRepository->findOneBy( ['id' => $orderId]);
+        $customerId = $orderById->getCustomer()->getId();
+        $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
+        $customer = $customerRepository->findOneBy( ['id' => $customerId]);
+        $elementRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Element' );
+        $orderElements = $elementRepository->findBy(['order' => $orderId]);
+        $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
+        $allEdges = $edgeRepository->findAll();
+
+        return $this->render( 'StolarzBundle::orderShowByOrderId.html.twig',
+            array(
+                'orderById' => $orderById,
+                'customer' => $customer,
+                'orderElements' => $orderElements,
+                'allEdges' => $allEdges
             ) );
     }
 }
