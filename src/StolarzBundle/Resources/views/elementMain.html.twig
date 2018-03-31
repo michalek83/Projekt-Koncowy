@@ -1,16 +1,17 @@
 {% extends "StolarzBundle:Default:base.html.twig" %}
 
-{% block title %}Zamówienie klienta {{ order.customer.name }} {% endblock %}
+{% block title %}Zamówienie klienta {{ customer.name }} {% endblock %}
 
 {% block content %}
-    <h1>Zamówienie klienta {{ order.customer.name }}</h1>
+    <h1>Zamówienie klienta {{ customer.name }}</h1>
+    <h2>Zamówienie nr: {{ orderId }}</h2>
     <h5>Lista elementów:</h5>
 
     {#{% if confirmation is not null %}#}
         {#{{ confirmation }}<br>#}
     {#{% endif %}#}
 
-    {{ dump(exist) }}
+    {#{{ dump(orderId) }}#}
 
     {#{% if exist is not null %}#}
         {#<font color = "red"><b>Materiał o id {{ exist }} nie istnieje.</b></font><br>#}
@@ -24,7 +25,6 @@
 
     <table border = "1" rules = "all">
         <tr>
-            <td>Jakie zamówienie</td>
             <td>Id</td>
             <td>Sztuk</td>
             <td>Materiał</td>
@@ -35,16 +35,16 @@
             <td>Obrzeże 1</td>
             <td>Obrzeże 2</td>
             <td>Obrotowo</td>
+            {#<td></td>#}
         </tr>
 
-        {% if allElements is empty %}
-            <font color="red"><b>Brak zamówień klienta {{ order.customer.name }} </b></font>
+        {% if orderElements is empty %}
+            <font color="red"><b>Brak elementów w zamówieniu. Dodaj nowe elementy.</b></font>
         {% else %}
             {% set i = 0 %}
-            {% for element in allElements %}
+            {% for element in orderElements %}
                 {% set i = i + 1 %}
                 <tr>
-                    <td>{{ dump(element.order) }}</td>
                     <td>{{ i }}</td>
                     <td>{{ element.quantity }}</td>
                     <td>{{ element.material }}</td>
@@ -54,7 +54,14 @@
                     <td>{{ element.width }}</td>
                     <td>{{ allEdges[element.edgeWidth1.id - 1].name }}</td>
                     <td>{{ allEdges[element.edgeWidth2.id - 1].name }}</td>
-                    <td>{{ element.rotatable }}</td>
+                    <td>
+                        {% if element.rotatable == true %}
+                            Tak
+                        {% else %}
+                            Nie
+                        {% endif %}
+                    </td>
+                    {#<td>{{ dump(element) }}</td>#}
                     {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
                 </tr>
             {% endfor %}
