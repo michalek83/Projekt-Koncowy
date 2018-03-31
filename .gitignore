@@ -11,3 +11,5 @@
 /bin/
 /composer.phar
 /.idea/
+.git (kopia)/
+.gitignore
