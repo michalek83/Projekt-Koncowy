@@ -19,15 +19,18 @@ class ElementController extends Controller
 	 */
 	public function elementMainAction( Request $request )
 	{
+        $session = $request->getSession();
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order');
+        $orderId = $orderRepository->findBy([], ['orderDateTime' => 'DESC'])[0]->getId();
+        $session->set('orderId', $orderId);
+
 		$elementRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Element' );
-		$allElements = $elementRepository->findAll();
+		$orderElements = $elementRepository->findBy(['order' => $orderId]);
 
         $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
         $allEdges = $edgeRepository->findAll();
 
-		$session = $request->getSession();
-		$order = $session->get('customer');
-
+		$customer = $session->get('customer');
 		$confirmation = $session->get('confirmation');
         $session->set('confirmation', null);
         $exist = $session->get('exist');
@@ -37,10 +40,11 @@ class ElementController extends Controller
 
 		return $this->render( 'StolarzBundle::elementMain.html.twig',
 			array(
-                'confirmation' => $confirmation,
-				'allElements' => $allElements,
+			    'orderId' => $orderId,
+				'orderElements' => $orderElements,
 				'allEdges' => $allEdges,
-				'order' => $order,
+				'customer' => $customer,
+                'confirmation' => $confirmation,
                 'exist' => $exist,
                 'deleted' => $deleted
 			) );
@@ -51,32 +55,37 @@ class ElementController extends Controller
 	 */
 	public function createElementAction( Request $request )
 	{
+	    $session = $request->getSession();
+	    $orderId = $session->get('orderId');
+
+        $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
+        $order = $orderRepository->find(['id' => $orderId]);
+
 		$element = new Element();
 		$form = $this->createForm( ElementType::class, $element );
-
 		$form->handleRequest( $request );
+
+		$element->setOrder($order);
 
 		if ( $form->isSubmitted() && $form->isValid() ) {
 			$element = $form->getData();
 			$em = $this->getDoctrine()->getManager();
 			$em->persist( $element );
-//			var_dump($element);
-//            var_dump($em);
-//			die;
-//            $em->flush();
+
+            $em->flush();
 
 			$session = $request->getSession();
 			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
 
-//			return $this->redirectToRoute( 'elementMain' );
+			return $this->redirectToRoute( 'elementMain' );
 		}
 
-		$session = $request->getSession();
-		$order = $session->get( 'customer' );
+        $session = $request->getSession();
+        $customer = $session->get('customer');
 
 		return $this->render( 'StolarzBundle::elementCreate.html.twig', array(
 			'form' => $form->createView(),
-			'order' => $order,
+			'customer' => $customer,
             'element' => $element) );
 	}
 }

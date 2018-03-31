@@ -3,7 +3,7 @@
 {% block title %}Dodaj element{% endblock %}
 
 {% block content %}
-    <h1>Zamówienie klienta {{ order.customer.name }}</h1>
+    <h1>Zamówienie klienta {{ customer.name }}</h1>
     <h3>Dodaj element:</h3>
     {{ form_start(form) }}
     {{ form_widget(form) }}
