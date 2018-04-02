@@ -66,9 +66,9 @@ class OrderController extends Controller
 	}
 
     /**
-     * @Route("/showOrdersByCustomer/{customerId}", name="showOrdersByCustomerId", requirements={"customerId": "\d+"})
+     * @Route("/orderShowByCustomerId/{customerId}", name="orderShowByCustomerId", requirements={"customerId": "\d+"})
      */
-    public function showOrdersByCustomerIdAction( $customerId )
+    public function showOrdersByCustomerIdAction( $customerId, Request $request )
     {
         $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
         $allOrdersByCustomerId = $orderRepository->findBy(['customer' => $customerId]);
@@ -76,7 +76,11 @@ class OrderController extends Controller
         $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
         $customer = $customerRepository->findOneBy(['id' => $customerId]);
 
-        return $this->render( 'StolarzBundle::showOrdersByCustomerId.html.twig',
+        $currentPage = 'orderShowByCustomerId';
+        $session = $request->getSession();
+        $session->set('customer', $customer);
+
+        return $this->render( 'StolarzBundle::orderShowByCustomerId.html.twig',
             array(
                 'allOrdersByCustomerId' => $allOrdersByCustomerId,
                 'customer' => $customer
@@ -86,7 +90,7 @@ class OrderController extends Controller
     /**
      * @Route("/orderShowByOrderId/{orderId}", name="orderShowByOrderId", requirements={"orderId": "\d+"})
      */
-    public function showOrderByOrderIdAction( $orderId )
+    public function showOrderByOrderIdAction( $orderId, Request $request )
     {
         $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order' );
         $orderById = $orderRepository->findOneBy( ['id' => $orderId]);
@@ -105,5 +109,30 @@ class OrderController extends Controller
                 'orderElements' => $orderElements,
                 'allEdges' => $allEdges
             ) );
+    }
+
+    /**
+     * @Route("/delete/{orderId}", name="deleteOrder", requirements={"orderId": "\d+"})
+     */
+    public function deleteOrderAction( $orderId, Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository( 'StolarzBundle:Order' )->find( $orderId );
+
+        $session = $request->getSession();
+        $customerId = $session->get('customer')->getId();
+
+        if ( !$order ) {
+            $session->set( 'exist', $orderId );
+
+            return $this->redirectToRoute( 'orderMain' );
+        }
+
+        $em->remove( $order );
+        $em->flush();
+
+        $session->set( 'deleted', $order );
+
+        return $this->redirectToRoute( 'orderShowByCustomerId', ['customerId' => $customerId] );
     }
 }

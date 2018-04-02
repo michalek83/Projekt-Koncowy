@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Order
 {
     /**
-     * @ORM\OneToMany(targetEntity="Element", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="order", cascade={"persist", "remove"})
      */
     private $element;
 
