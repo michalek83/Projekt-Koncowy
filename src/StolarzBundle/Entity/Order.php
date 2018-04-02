@@ -17,6 +17,7 @@ class Order
      */
     private $element;
 
+
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="order")
      */
