@@ -33,11 +33,11 @@
                     <td>{{ element.quantity }}</td>
                     <td>{{ element.material }}</td>
                     <td>{{ element.lenght }}</td>
-                    <td>{{ allEdges[element.edgeLenght1.id - 1].name }}</td>
-                    <td>{{ allEdges[element.edgeLenght2.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeLenght1.id].name }}</td>
+                    <td>{{ allEdges[element.edgeLenght2.id].name }}</td>
                     <td>{{ element.width }}</td>
-                    <td>{{ allEdges[element.edgeWidth1.id - 1].name }}</td>
-                    <td>{{ allEdges[element.edgeWidth2.id - 1].name }}</td>
+                    <td>{{ allEdges[element.edgeWidth1.id].name }}</td>
+                    <td>{{ allEdges[element.edgeWidth2.id].name }}</td>
                     <td>
                         {% if element.rotatable == true %}
                             Tak

@@ -76,7 +76,6 @@ class OrderController extends Controller
         $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
         $customer = $customerRepository->findOneBy(['id' => $customerId]);
 
-        $currentPage = 'orderShowByCustomerId';
         $session = $request->getSession();
         $session->set('customer', $customer);
 
@@ -124,7 +123,7 @@ class OrderController extends Controller
         $order = $em->getRepository( 'StolarzBundle:Order' )->find( $orderId );
 
         $session = $request->getSession();
-        $customerId = $session->get('customer')->getId();
+        $customerId = $order->getCustomer()->getId();
 
         if ( !$order ) {
             $session->set( 'exist', $orderId );

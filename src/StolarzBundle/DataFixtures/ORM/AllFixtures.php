@@ -46,7 +46,7 @@ class AllFixtures extends Fixture
                     $element->setEdgeLenght2($edge);
                     $element->setEdgeWidth1($edge);
                     $element->setEdgeWidth2($edge);
-                    $element->setQuantity($j);
+                    $element->setQuantity(10 + $j);
                     $element->setLenght(100 + $j);
                     $element->setWidth(200 + $i);
                     if(0 == $j%2) {
