@@ -102,12 +102,16 @@ class OrderController extends Controller
         $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
         $allEdges = $edgeRepository->findAll();
 
+        foreach($allEdges as $edge){
+            $allEdgesRebuilded[$edge->getId()] = $edge;
+        }
+
         return $this->render( 'StolarzBundle::orderShowByOrderId.html.twig',
             array(
                 'orderById' => $orderById,
                 'customer' => $customer,
                 'orderElements' => $orderElements,
-                'allEdges' => $allEdges
+                'allEdges' => $allEdgesRebuilded
             ) );
     }
 
