@@ -3,9 +3,11 @@ namespace StolarzBundle\DataFixtures\ORM;
 
 use StolarzBundle\Entity\Customer;
 use StolarzBundle\Entity\Edge;
+use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Material;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use StolarzBundle\Entity\Order;
 
 class AllFixtures extends Fixture
 {
@@ -32,6 +34,30 @@ class AllFixtures extends Fixture
                 $material->setDescription('Description no ' . $i);
 
                 $manager->persist($material);
+
+                $order = new Order();
+                $order->setCustomer($customer);
+
+                for ($j = 1; $j < 10; $j++){
+                    $element = new Element();
+                    $element->setMaterial($material);
+                    $element->setOrder($order);
+                    $element->setEdgeLenght1($edge);
+                    $element->setEdgeLenght2($edge);
+                    $element->setEdgeWidth1($edge);
+                    $element->setEdgeWidth2($edge);
+                    $element->setQuantity($j);
+                    $element->setLenght(100 + $j);
+                    $element->setWidth(200 + $i);
+                    if(0 == $j%2) {
+                        $element->setRotatable(true);
+                    }else{
+                        $element->setRotatable(false);
+                    }
+                    $manager->persist($element);
+                }
+
+                $manager->persist($order);
             }
 
         $manager->flush();
