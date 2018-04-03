@@ -30,6 +30,10 @@ class ElementController extends Controller
         $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
         $allEdges = $edgeRepository->findAll();
 
+        foreach($allEdges as $edge){
+            $allEdgesRebuilded[$edge->getId()] = $edge;
+        }
+
 		$customer = $session->get('customer');
 		$confirmation = $session->get('confirmation');
         $session->set('confirmation', null);
@@ -42,7 +46,7 @@ class ElementController extends Controller
 			array(
 			    'orderId' => $orderId,
 				'orderElements' => $orderElements,
-				'allEdges' => $allEdges,
+				'allEdges' => $allEdgesRebuilded,
 				'customer' => $customer,
                 'confirmation' => $confirmation,
                 'exist' => $exist,
@@ -88,4 +92,32 @@ class ElementController extends Controller
 			'customer' => $customer,
             'element' => $element) );
 	}
+
+    /**
+     * @Route("/delete/{elementId}", name="deleteElement", requirements={"elementId": "\d+"})
+     */
+    public function deleteElementAction( $elementId, Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $element = $em->getRepository( 'StolarzBundle:Element' )->find( $elementId );
+
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository( 'StolarzBundle:Order' )->find( $element->getOrder()->getId() );
+        $orderId = $order->getId();
+
+        $session = $request->getSession();
+
+        if ( !$element ) {
+            $session->set( 'exist', $elementId );
+
+            return $this->redirectToRoute( 'elementMain' );
+        }
+
+        $em->remove( $element );
+        $em->flush();
+
+        $session->set( 'deleted', $element );
+
+        return $this->redirectToRoute( 'orderShowByOrderId', ['orderId' => $orderId] );
+    }
 }

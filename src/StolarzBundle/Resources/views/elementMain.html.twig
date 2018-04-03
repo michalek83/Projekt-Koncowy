@@ -35,7 +35,7 @@
             <td>Obrzeże 1</td>
             <td>Obrzeże 2</td>
             <td>Obrotowo</td>
-            {#<td></td>#}
+            <td>Usuń element</td>
         </tr>
 
         {% if orderElements is empty %}
@@ -61,8 +61,7 @@
                             Nie
                         {% endif %}
                     </td>
-                    {#<td>{{ dump(element) }}</td>#}
-                    {#<td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>#}
+                    <td><a href="{{ path('deleteElement', {'elementId':element.id}) }}">Usuń element</a></td>
                 </tr>
             {% endfor %}
         {% endif %}

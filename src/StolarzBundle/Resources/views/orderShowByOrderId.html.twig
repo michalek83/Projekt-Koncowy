@@ -50,6 +50,7 @@
                             Nie
                         {% endif %}
                     </td>
+                    <td><a href="{{ path('deleteElement', {'elementId':element.id}) }}">Usuń element</a></td>
                 </tr>
             {% endfor %}
         {% endif %}
