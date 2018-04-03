@@ -21,6 +21,10 @@ class CustomerController extends Controller
 		$customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
 		$allCustomers = $customerRepository->findBy( [], [ 'name' => 'ASC' ] );
 
+        foreach($allCustomers as $customer){
+            $allCustomersRebuilded[$customer->getId()] = $customer;
+        }
+
 		$session = $request->getSession();
 		$confirmation = $session->get( 'confirmation' );        // Potwierdzenie stworzenia klienta
 		$session->set( 'confirmation' , null );
@@ -32,7 +36,7 @@ class CustomerController extends Controller
 		return $this->render( 'StolarzBundle::customerMain.html.twig',
 			array(
 			    'confirmation' => $confirmation,
-				'allCustomers' => $allCustomers,
+				'allCustomers' => $allCustomersRebuilded,
 				'exist' => $exist,
 				'deleted' => $deleted ) );
 	}

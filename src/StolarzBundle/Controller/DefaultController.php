@@ -31,6 +31,10 @@ class DefaultController extends Controller
         $customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
         $allCustomers = $customerRepository->findAll();
 
+        foreach($allCustomers as $customer){
+            $allCustomersRebuilded[$customer->getId()] = $customer;
+        }
+
         $session = $request->getSession();
         $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
         $session->set('confirmation', null);
@@ -43,7 +47,7 @@ class DefaultController extends Controller
 			array(
                 'confirmation' => $confirmation,
 				'allOrders' => $allOrders,
-                'allCustomers' => $allCustomers,
+                'allCustomers' => $allCustomersRebuilded,
                 'exist' => $exist,
                 'deleted' => $deleted
 			) );

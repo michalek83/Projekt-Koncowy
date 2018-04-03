@@ -24,14 +24,14 @@
             <td>Nazwa</td>
             <td>Adres</td>
             <td>Uwagi</td>
-            {#<td>Usuwanie</td>#}
+            <td>Usuwanie</td>
         </tr>
         {% set i = 0 %}
         {% for customer in allCustomers %}
             {% set i = i + 1 %}
             <tr>
                 <td>{{ i }}</td>
-                <td><a href="{{ path('showOrdersByCustomerId',{'customerId':customer.id}) }}">{{ customer.name }}</a></td>
+                <td><a href="{{ path('orderShowByCustomerId',{'customerId':customer.id}) }}">{{ customer.name }}</a></td>
                 <td>{{ customer.address }}</td>
                 <td>{{ customer.description }}</td>
                 <td><a href="{{ path('deleteCustomer', {'id':customer.id}) }}">Usuń klienta</a></td>

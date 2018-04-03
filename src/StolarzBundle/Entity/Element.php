@@ -215,72 +215,6 @@ class Element
     }
 
     /**
-     * Add material
-     *
-     * @param \StolarzBundle\Entity\Material $material
-     * @return Element
-     */
-    public function addMaterial(\StolarzBundle\Entity\Material $material)
-    {
-        $this->material[] = $material;
-
-        return $this;
-    }
-
-    /**
-     * Remove material
-     *
-     * @param \StolarzBundle\Entity\Material $material
-     */
-    public function removeMaterial(\StolarzBundle\Entity\Material $material)
-    {
-        $this->material->removeElement($material);
-    }
-
-    /**
-     * Get material
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMaterial()
-    {
-        return $this->material;
-    }
-
-    /**
-     * Add edge
-     *
-     * @param \StolarzBundle\Entity\Edge $edge
-     * @return Element
-     */
-    public function addEdge(\StolarzBundle\Entity\Edge $edge)
-    {
-        $this->edge[] = $edge;
-
-        return $this;
-    }
-
-    /**
-     * Remove edge
-     *
-     * @param \StolarzBundle\Entity\Edge $edge
-     */
-    public function removeEdge(\StolarzBundle\Entity\Edge $edge)
-    {
-        $this->edge->removeElement($edge);
-    }
-
-    /**
-     * Get edge
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEdge()
-    {
-        return $this->edge;
-    }
-
-    /**
      * Set material
      *
      * @param \StolarzBundle\Entity\Material $material
@@ -292,6 +226,26 @@ class Element
         $this->material = $material;
 
         return $this;
+    }
+
+    /**
+     * Get material
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMaterial()
+    {
+        return $this->material;
+    }
+
+    /**
+     * Remove material
+     *
+     * @param \StolarzBundle\Entity\Material $material
+     */
+    public function removeMaterial(\StolarzBundle\Entity\Material $material)
+    {
+        $this->material->removeElement($material);
     }
 
     /**
