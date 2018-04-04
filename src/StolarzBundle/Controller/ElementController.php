@@ -42,7 +42,7 @@ class ElementController extends Controller
         $deleted = $session->get('deleted');
         $session->set('deleted', null);
 
-		return $this->render( 'StolarzBundle::elementMain.html.twig',
+		return $this->render( 'StolarzBundle::Element/elementMain.html.twig',
 			array(
 			    'orderId' => $orderId,
 				'orderElements' => $orderElements,
@@ -87,7 +87,7 @@ class ElementController extends Controller
         $session = $request->getSession();
         $customer = $session->get('customer');
 
-		return $this->render( 'StolarzBundle::elementCreate.html.twig', array(
+		return $this->render( 'StolarzBundle::Element/elementCreate.html.twig', array(
 			'form' => $form->createView(),
 			'customer' => $customer,
             'element' => $element) );

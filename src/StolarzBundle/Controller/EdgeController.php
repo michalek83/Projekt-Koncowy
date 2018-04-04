@@ -29,7 +29,7 @@ class EdgeController extends Controller
 		$deleted = $session->get( 'deleted');                           // Obrzeże skasowano
 		$session->set( 'deleted', null );
 
-		return $this->render( 'StolarzBundle::edgeMain.html.twig',
+		return $this->render( 'StolarzBundle::Edge/edgeMain.html.twig',
 			array(
 			    'confirmation' => $confirmation,
 				'allEdges' => $allEdges,
@@ -60,7 +60,7 @@ class EdgeController extends Controller
 			return $this->redirectToRoute( 'edgeMain' );
 		}
 
-		return $this->render( 'StolarzBundle::edgeCreate.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::Edge/edgeCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 
 	/**

@@ -33,7 +33,7 @@ class CustomerController extends Controller
 		$deleted = $session->get( 'deleted' );                  // Klienta skasowano
 		$session->set( 'deleted', null );
 
-		return $this->render( 'StolarzBundle::customerMain.html.twig',
+		return $this->render( 'StolarzBundle::Customer/customerMain.html.twig',
 			array(
 			    'confirmation' => $confirmation,
 				'allCustomers' => $allCustomersRebuilded,
@@ -64,7 +64,7 @@ class CustomerController extends Controller
 			return $this->redirectToRoute( 'customerMain' );
 		}
 
-		return $this->render( 'StolarzBundle::customerCreate.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::Customer/customerCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 
 	/**

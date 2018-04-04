@@ -11,6 +11,8 @@
         </a>
     </h5>
 
+    <a href="{{ path('createElement') }}">Dodaj nowy element</a><br><br>
+
     <table border = "1" rules = "all">
         {% if orderById.element is empty %}
             <font color="red"><b>Brak elementów w zamówieniu.</b></font>
