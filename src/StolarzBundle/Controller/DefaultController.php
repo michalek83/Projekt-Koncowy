@@ -38,6 +38,8 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
         $session->set('confirmation', null);
+        $emailConfirmation = $session->get('emailConfirmation', null);    // Potwierdzenie wysłania maila
+        $session->set('emailConfirmation', null);
         $exist = $session->get('exist', null);                  // Zamówenie istnieje
         $session->set('exist', null);
         $deleted = $session->get('deleted', null);              // Zamówienie skasowano
@@ -45,9 +47,10 @@ class DefaultController extends Controller
 
 		return $this->render( 'StolarzBundle::main.html.twig',
 			array(
-                'confirmation' => $confirmation,
-				'allOrders' => $allOrders,
+                'allOrders' => $allOrders,
                 'allCustomers' => $allCustomersRebuilded,
+                'confirmation' => $confirmation,
+                'emailConfirmation' => $emailConfirmation,
                 'exist' => $exist,
                 'deleted' => $deleted
 			) );
