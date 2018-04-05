@@ -16,9 +16,14 @@ class AllFixtures extends Fixture
         // create 5 customers, edges, material
             for ($i = 1; $i <= 20; $i++) {
                 $customer = new Customer();
-                $customer->setName('Customer nr ' . $i);
+                $customer->setName('CustomerName nr ' . $i);
                 $customer->setDescription('Description no ' . $i);
                 $customer->setAddress('Address' . $i);
+                if(0 == $i%2) {
+                    $customer->setEmailAddress('michalgorniak@o2.pl');
+                }else{
+                    $customer->setEmailAddress('michalek_18@wp.pl');
+                }
 
                 $manager->persist($customer);
 

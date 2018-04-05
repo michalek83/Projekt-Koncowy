@@ -22,9 +22,9 @@ class EmailController extends Controller
         $customerId = $order->getCustomer()->getId();
         $customer = $em->getRepository( 'StolarzBundle:Customer' )->find( $customerId );
 
-        $emailSubject = 'Zamówienie nr '. $orderId . '- Klient ' . $customer->getName() . '.';
+        $emailSubject = 'Zamówienie nr '. $orderId . ' - Klient ' . $customer->getName() . '.';
         $emailSender = array('michalek_18@wp.pl' => 'Michał');
-        $emailRecipient = 'michalgorniak@o2.pl';
+        $emailRecipient = $customer->getEmailAddress();
         $emailContent;
 
         $message = (new \Swift_Message())

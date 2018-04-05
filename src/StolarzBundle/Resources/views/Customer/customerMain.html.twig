@@ -23,6 +23,7 @@
             <td>Id</td>
             <td>Nazwa</td>
             <td>Adres</td>
+            <td>Adres email</td>
             <td>Uwagi</td>
             <td>Usuwanie</td>
         </tr>
@@ -33,6 +34,7 @@
                 <td>{{ i }}</td>
                 <td><a href="{{ path('orderShowByCustomerId',{'customerId':customer.id}) }}">{{ customer.name }}</a></td>
                 <td>{{ customer.address }}</td>
+                <td>{{ customer.emailAddress }}</td>
                 <td>{{ customer.description }}</td>
                 <td><a href="{{ path('deleteCustomer', {'id':customer.id}) }}">Usuń klienta</a></td>
             </tr>
