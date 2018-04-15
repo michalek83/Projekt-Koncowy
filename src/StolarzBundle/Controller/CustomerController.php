@@ -7,9 +7,11 @@ use StolarzBundle\Form\CustomerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Route("/customer")
+ * @ORM\Entity(repositoryClass="StolarzBundle\Repository\CustomerRepository")
  */
 class CustomerController extends Controller
 {
@@ -19,11 +21,7 @@ class CustomerController extends Controller
 	public function customerMainAction( Request $request )
 	{
 		$customerRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Customer' );
-		$allCustomers = $customerRepository->findBy( [], [ 'name' => 'ASC' ] );
-
-        foreach($allCustomers as $customer){
-            $allCustomersRebuilded[$customer->getId()] = $customer;
-        }
+		$allCustomers = $customerRepository->findByRebuildedIds( [], [ 'name' => 'ASC' ] );
 
 		$session = $request->getSession();
 		$confirmation = $session->get( 'confirmation' );        // Potwierdzenie stworzenia klienta
@@ -36,7 +34,7 @@ class CustomerController extends Controller
 		return $this->render( 'StolarzBundle::Customer/customerMain.html.twig',
 			array(
 			    'confirmation' => $confirmation,
-				'allCustomers' => $allCustomersRebuilded,
+				'allCustomers' => $allCustomers,
 				'exist' => $exist,
 				'deleted' => $deleted ) );
 	}

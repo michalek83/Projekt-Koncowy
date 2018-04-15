@@ -1,12 +1,12 @@
 <?php
 namespace StolarzBundle\DataFixtures\ORM;
 
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
 use StolarzBundle\Entity\Customer;
 use StolarzBundle\Entity\Edge;
 use StolarzBundle\Entity\Element;
 use StolarzBundle\Entity\Material;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use StolarzBundle\Entity\Order;
 
 class AllFixtures extends Fixture
