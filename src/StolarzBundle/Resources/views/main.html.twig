@@ -10,7 +10,7 @@
     <h5>Lista wszystkich zamówień: </h5>
 
     {% if emailConfirmation is not null %}
-        <font color = "red"><b>Wysłano maila z zamówieniem [wpisac nr zamowienia] do klienta [wpisac nazwe klienta]</b></font><br>
+        <font color = "red"><b>Wysłano maila z zamówieniem {{ emailOrderId }} do klienta {{ emailCustomerName }}</b></font><br>
     {% endif %}
 
     <table border = "1" rules = "all">

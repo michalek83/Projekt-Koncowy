@@ -21,23 +21,31 @@ class EmailController extends Controller
         $order = $em->getRepository( 'StolarzBundle:Order' )->find( $orderId );
         $customerId = $order->getCustomer()->getId();
         $customer = $em->getRepository( 'StolarzBundle:Customer' )->find( $customerId );
+        $customerName = $customer->getName();
 
         $emailSubject = 'Zamówienie nr '. $orderId . ' - Klient ' . $customer->getName() . '.';
         $emailSender = array('michalek_18@wp.pl' => 'Michał');
         $emailRecipient = $customer->getEmailAddress();
-        $emailContent;
+        $emailContent = $this->renderView('StolarzBundle::Email/order.html.twig',
+            array(
+                'customerName' => $customerName
+            ));
+
+        var_dump($emailContent);die;
 
         $message = (new \Swift_Message())
             ->setSubject($emailSubject)
             ->setFrom($emailSender)
             ->setTo($emailRecipient)
-            ->setBody('Tresc przykladowego maila')
+            ->setBody($emailContent)
         ;
-
+//        var_dump($message);die;
         $this->get('mailer')->send($message);
 
         $session = $request->getSession();
         $session->set('emailConfirmation', 'Wysłano');
+        $session->set('emailCustomerName', $customerName);
+        $session->set('emailOrderId', $orderId);
 
         return $this->redirectToRoute( 'main' );
     }
