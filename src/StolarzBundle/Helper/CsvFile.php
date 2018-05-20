@@ -4,8 +4,6 @@ namespace StolarzBundle\Helper;
 
 use Symfony\Component\Filesystem\Filesystem;
 use StolarzBundle\Entity\Order;
-use StolarzBundle\Entity\Element;
-use Doctrine\DBAL\Connections;
 
 class CsvFile extends Filesystem
 {
@@ -32,6 +30,10 @@ class CsvFile extends Filesystem
         return self::PREFIX_CATALOG . $this->order->getCustomer()->getName() . "_" . $this->order->getId() . ".csv";
     }
 
+    public function deleteTempFolder(){
+        $this->remove(self::PREFIX_CATALOG);
+    }
+
     protected function createTempFolder() {
         if(!$this->isTempFolderExist()){
             $this->mkdir(self::PREFIX_CATALOG);
@@ -41,10 +43,6 @@ class CsvFile extends Filesystem
 
     protected function isTempFolderExist(){
         return $this->exists(self::PREFIX_CATALOG);
-    }
-
-    protected function deleteTempFolder(){
-        $this->remove(self::PREFIX_CATALOG);
     }
 
     protected function createCsvFile(){

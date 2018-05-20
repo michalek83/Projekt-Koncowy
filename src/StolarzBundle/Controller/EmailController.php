@@ -49,10 +49,12 @@ class EmailController extends Controller
                 ),
                 'text/html'
             )
-            ->attach(\Swift_Attachment::fromPath($attachmentPath)) //wzor - do zmiany
+            ->attach(\Swift_Attachment::fromPath($attachmentPath))
         ;
 
         $this->get('mailer')->send($message);
+
+        $csvFile->deleteTempFolder();
 
         $session = $request->getSession();
         $session->set('emailConfirmation', 'Wysłano');
