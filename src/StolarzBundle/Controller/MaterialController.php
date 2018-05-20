@@ -29,7 +29,7 @@ class MaterialController extends Controller
 		$deleted = $session->get( 'deleted' );                          // Materiał skasowano
 		$session->set( 'deleted', null );
 
-		return $this->render( 'StolarzBundle::materialMain.html.twig',
+		return $this->render( 'StolarzBundle::Material/materialMain.html.twig',
 			array(
 			    'confirmation' => $confirmation,
 				'allMaterials' => $allMaterials,
@@ -60,7 +60,7 @@ class MaterialController extends Controller
             return $this->redirectToRoute( 'materialMain' );
         }
 
-        return $this->render( 'StolarzBundle::materialCreate.html.twig', array( 'form' => $form->createView() ) );
+        return $this->render( 'StolarzBundle::Material/materialCreate.html.twig', array( 'form' => $form->createView() ) );
     }
 
     /**

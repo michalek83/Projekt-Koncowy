@@ -31,7 +31,7 @@ class OrderController extends Controller
         $deleted = $session->get('deleted', null);              // Zamówienie skasowano
         $session->set('deleted', null);
 
-        return $this->render( 'StolarzBundle::orderMain.html.twig',
+        return $this->render( 'StolarzBundle::Order/orderMain.html.twig',
             array(
                 'allOrders' => $allOrders,
                 'confirmation' => $confirmation,
@@ -62,7 +62,7 @@ class OrderController extends Controller
 			return $this->redirectToRoute( 'elementMain' );
 		}
 
-		return $this->render( 'StolarzBundle::orderCreate.html.twig', array( 'form' => $form->createView() ) );
+		return $this->render( 'StolarzBundle::Order/orderCreate.html.twig', array( 'form' => $form->createView() ) );
 	}
 
     /**
@@ -79,7 +79,7 @@ class OrderController extends Controller
         $session = $request->getSession();
         $session->set('customer', $customer);
 
-        return $this->render( 'StolarzBundle::orderShowByCustomerId.html.twig',
+        return $this->render( 'StolarzBundle::Order/orderShowByCustomerId.html.twig',
             array(
                 'allOrdersByCustomerId' => $allOrdersByCustomerId,
                 'customer' => $customer
@@ -105,7 +105,7 @@ class OrderController extends Controller
             $allEdgesRebuilded[$edge->getId()] = $edge;
         }
 
-        return $this->render( 'StolarzBundle::orderShowByOrderId.html.twig',
+        return $this->render( 'StolarzBundle::Order/orderShowByOrderId.html.twig',
             array(
                 'orderById' => $orderById,
                 'customer' => $customer,

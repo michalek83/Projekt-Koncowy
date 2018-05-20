@@ -45,6 +45,13 @@ class Customer
     /**
      * @var string
      *
+     * @ORM\Column(name="emailAddress", type="string", length=255)
+     */
+    private $emailAddress;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
@@ -104,6 +111,22 @@ class Customer
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * @param string $emailAddress
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->emailAddress = $emailAddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
     }
 
     /**

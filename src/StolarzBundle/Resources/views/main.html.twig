@@ -9,6 +9,10 @@
 
     <h5>Lista wszystkich zamówień: </h5>
 
+    {% if emailConfirmation is not null %}
+        <font color = "red"><b>Wysłano maila z zamówieniem {{ emailOrderId }} do klienta {{ emailCustomerName }}</b></font><br>
+    {% endif %}
+
     <table border = "1" rules = "all">
         <tr>
             <td>Id</td>
@@ -25,7 +29,7 @@
                 <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
                 <td><a href="{{ path('orderShowByCustomerId',{'customerId':order.customer.id}) }}">{{ allCustomers[order.customer.id].name }}</a></td>
                 <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
-                <td>Wyślij</td>
+                <td><a href="{{ path('emailSend',{'orderId':order.id}) }}">Wyślij</a></td>
             </tr>
         {% endfor %}
     </table>

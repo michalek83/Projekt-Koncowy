@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class CustomerRepository extends EntityRepository
 {
+    /**
+     * Finds entities by a set of criteria and id of entity in array is the same as in db.
+     *
+     * @param array      $criteria
+     * @param array|null $orderBy
+     * @param int|null   $limit
+     * @param int|null   $offset
+     *
+     * @return array The objects.
+     */
+    public function findByRebuildedIds(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        $persister = $this->_em->getUnitOfWork()->getEntityPersister($this->_entityName);
+        $allCustomers = $persister->loadAll($criteria, $orderBy, $limit, $offset);
+
+        foreach($allCustomers as $customer){
+            $result[$customer->getId()] = $customer;
+        }
+
+        return $result;
+    }
 }
