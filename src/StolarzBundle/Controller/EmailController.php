@@ -2,9 +2,11 @@
 
 namespace StolarzBundle\Controller;
 
+use Proxies\__CG__\StolarzBundle\Entity\Material;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use StolarzBundle\Helper\CsvFile;
 
 
 /**
@@ -22,10 +24,20 @@ class EmailController extends Controller
         $customerId = $order->getCustomer()->getId();
         $customer = $em->getRepository( 'StolarzBundle:Customer' )->find( $customerId );
         $customerName = $customer->getName();
+        $allElements = $em->getRepository('StolarzBundle:Element')->findBy(['order' => $orderId]);
+        $allEdges = $em->getRepository('StolarzBundle:Edge')->findAll();
+        $allMaterials = $em->getRepository('StolarzBundle:Material')->findAll();
 
+        //email sending
         $emailSubject = 'Zamówienie nr '. $orderId . ' - Klient ' . $customer->getName() . '.';
         $emailSender = array('michalek_18@wp.pl' => 'Michał');
         $emailRecipient = $customer->getEmailAddress();
+
+        //CSV data creation from order data
+        $csvFile = new CsvFile($order, $allElements);
+        $csvFile->createNewFile();
+
+        $attachmentPath = $csvFile->getPathWithNameAndOrderNo();
 
         $message = (new \Swift_Message())
             ->setSubject($emailSubject)
@@ -37,6 +49,7 @@ class EmailController extends Controller
                 ),
                 'text/html'
             )
+            ->attach(\Swift_Attachment::fromPath($attachmentPath)) //wzor - do zmiany
         ;
 
         $this->get('mailer')->send($message);
