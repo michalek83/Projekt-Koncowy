@@ -42,11 +42,15 @@ class AllFixtures extends Fixture
 
                 $order = new Order();
                 $order->setCustomer($customer);
+                $order->setOrderName($customer, $i);
 
                 for ($j = 1; $j < 10; $j++){
                     $element = new Element();
                     $element->setMaterial($material);
                     $element->setOrder($order);
+                    $element->setDescription('Decription ' . $j);
+                    $element->setPositionName('Position name ' . $j);
+                    $element->setElementName('Element name ' . $j);
                     $element->setEdgeLenght1($edge);
                     $element->setEdgeLenght2($edge);
                     $element->setEdgeWidth1($edge);

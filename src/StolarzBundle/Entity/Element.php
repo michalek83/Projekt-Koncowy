@@ -67,6 +67,28 @@ class Element
     private $width;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="elementName", type="string", length=255)
+     */
+    private $elementName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="positionName", type="string", length=255)
+     */
+    private $positionName;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
+     */
+    private $description;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="quantity", type="integer")
@@ -143,6 +165,54 @@ class Element
     public function getWidth()
     {
         return $this->width;
+    }
+
+    /**
+     * @return string
+     */
+    public function getElementName()
+    {
+        return $this->elementName;
+    }
+
+    /**
+     * @param string $elementName
+     */
+    public function setElementName($elementName)
+    {
+        $this->elementName = $elementName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPositionName()
+    {
+        return $this->positionName;
+    }
+
+    /**
+     * @param string $positionName
+     */
+    public function setPositionName($positionName)
+    {
+        $this->positionName = $positionName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     /**

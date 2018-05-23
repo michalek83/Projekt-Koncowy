@@ -76,11 +76,11 @@ class CsvFile extends Filesystem
             }
 
             $variablesArray = [
-                "Przykładowa nazwa zlecenia",
+                $this->order->getOrderName(),
                 $element->getMaterial()->getName(),
-                "Element nazwa",
-                "Pozycja nazwa",
-                "Oznaczenie nazwa",
+                $element->getElementName(),
+                $element->getPositionName(),
+                $element->getDescription(),
                 $element->getQuantity(),
                 $element->getLenght(),
                 $element->getWidth(),

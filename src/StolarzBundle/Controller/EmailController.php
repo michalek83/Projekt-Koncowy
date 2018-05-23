@@ -54,7 +54,7 @@ class EmailController extends Controller
 
         $this->get('mailer')->send($message);
 
-        $csvFile->deleteTempFolder();
+//        $csvFile->deleteTempFolder();
 
         $session = $request->getSession();
         $session->set('emailConfirmation', 'Wysłano');

@@ -39,6 +39,14 @@ class Order
      */
     private $id;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="orderName", type="string", length=255)
+     */
+    private $orderName;
+
     /**
      * Constructor
      */
@@ -56,6 +64,22 @@ class Order
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderName()
+    {
+        return $this->orderName;
+    }
+
+    /**
+     * @param string $orderName
+     */
+    public function setOrderName(Customer $customer, $id = null)
+    {
+        $this->orderName = $customer->getName() . $id;
     }
 
     /**
