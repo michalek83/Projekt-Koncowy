@@ -20,6 +20,9 @@
 
         <tr>
             <td>Numer elementu</td>
+            <td>Element</td>
+            <td>Pozycja</td>
+            <td>Oznaczenie</td>
             <td>Sztuk</td>
             <td>Materiał</td>
             <td>Długość</td>
@@ -37,6 +40,9 @@
                 {% set i = i + 1 %}
                 <tr>
                     <td>{{ i }}</td>
+                    <td>{{ element.elementName }}</td>
+                    <td>{{ element.positionName }}</td>
+                    <td>{{ element.description }}</td>
                     <td>{{ element.quantity }}</td>
                     <td>{{ element.material }}</td>
                     <td>{{ element.lenght }}</td>
