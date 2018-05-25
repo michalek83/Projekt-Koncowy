@@ -2,8 +2,9 @@
 
 namespace StolarzBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +16,13 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add( 'customer', 'entity', array(
+            ->add( 'customer', EntityType::class, array(
                 'class' => 'StolarzBundle:Customer',
                 'label' => 'Klient: ',
                 'choice_label' => 'name'
-            ) )
-            ->add( 'Wybierz', 'submit' )
+            ))
+            ->add( 'orderName', TextType::class, array( 'required' => true, 'label' => 'Nazwa zamówienia: ' ) )
+            ->add( 'Wybierz', 'submit', array('label' => 'Wybierz klienta') )
             ->getForm()
         ;
     }

@@ -21,11 +21,11 @@ class ElementController extends Controller
 	{
         $session = $request->getSession();
         $orderRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Order');
-        $orderId = $orderRepository->findBy([], ['orderDateTime' => 'DESC'])[0]->getId();
-        $session->set('orderId', $orderId);
+        $order = $orderRepository->findBy([], ['orderDateTime' => 'DESC'])[0];
+        $session->set('orderId', $order->getId());
 
 		$elementRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Element' );
-		$orderElements = $elementRepository->findBy(['order' => $orderId]);
+		$orderElements = $elementRepository->findBy(['order' => $order->getId()]);
 
         $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
         $allEdges = $edgeRepository->findAll();
@@ -44,7 +44,7 @@ class ElementController extends Controller
 
 		return $this->render( 'StolarzBundle::Element/elementMain.html.twig',
 			array(
-			    'orderId' => $orderId,
+			    'order' => $order,
 				'orderElements' => $orderElements,
 				'allEdges' => $allEdgesRebuilded,
 				'customer' => $customer,
@@ -79,9 +79,9 @@ class ElementController extends Controller
             $em->flush();
 
 			$session = $request->getSession();
-			$session->set( 'confirmation', "Zamówienie zapisano poprawnie." );
+			$session->set( 'confirmation', "Element zapisano poprawnie." );
 
-			return $this->redirectToRoute( 'elementMain' );
+            return $this->redirectToRoute( 'elementMain' );
 		}
 
         $session = $request->getSession();
@@ -102,8 +102,7 @@ class ElementController extends Controller
         $element = $em->getRepository( 'StolarzBundle:Element' )->find( $elementId );
 
         $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository( 'StolarzBundle:Order' )->find( $element->getOrder()->getId() );
-        $orderId = $order->getId();
+        $orderId = $element->getOrder()->getId();
 
         $session = $request->getSession();
 

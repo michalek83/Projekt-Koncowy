@@ -16,7 +16,7 @@ class MaterialType extends AbstractType
         $builder
             ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
             ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-            ->add( 'save', 'submit', array( 'label' => 'Stwórz materiał' ) )
+            ->add( 'save', 'submit', array( 'label' => 'Dodaj materiał' ) )
             ->getForm()
             ;
     }

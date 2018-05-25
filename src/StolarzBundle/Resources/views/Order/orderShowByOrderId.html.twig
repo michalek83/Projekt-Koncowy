@@ -13,6 +13,10 @@
 
     <a href="{{ path('createElement') }}">Dodaj nowy element</a><br><br>
 
+    {% if deleted is not null %}
+        Element skasowany.<br>
+    {% endif %}
+
     <table border = "1" rules = "all">
         {% if orderById.element is empty %}
             <font color="red"><b>Brak elementów w zamówieniu.</b></font>

@@ -77,9 +77,9 @@ class Order
     /**
      * @param string $orderName
      */
-    public function setOrderName(Customer $customer, $id = null)
+    public function setOrderName($orderName)
     {
-        $this->orderName = $customer->getName() . $id;
+        $this->orderName = $orderName;
     }
 
     /**

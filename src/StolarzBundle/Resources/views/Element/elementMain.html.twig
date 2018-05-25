@@ -3,13 +3,14 @@
 {% block title %}Zamówienie klienta {{ customer.name }} {% endblock %}
 
 {% block content %}
-    <h1>Zamówienie klienta {{ customer.name }}</h1>
-    <h2>Zamówienie nr: {{ orderId }}</h2>
+    <h1>Zamówienie klienta <a href="{{ path('customerMain') }}">{{ customer.name }}</a></h1>
+    <h2>Zamówienie nr: {{ order.id }}</h2>
+    <h3>Nazwa zamówienia: {{ order.orderName }}</h3>
     <h5>Lista elementów:</h5>
 
-    {#{% if confirmation is not null %}#}
-        {#{{ confirmation }}<br>#}
-    {#{% endif %}#}
+    {% if confirmation is not null %}
+        {{ confirmation }}<br>
+    {% endif %}
 
     {#{{ dump(orderId) }}#}
 
@@ -26,6 +27,9 @@
     <table border = "1" rules = "all">
         <thead>
             <th>Id</th>
+            <th>Element</th>
+            <th>Pozycja</th>
+            <th>Oznaczenie</th>
             <th>Sztuk</th>
             <th>Materiał</th>
             <th>Długość</th>
@@ -46,14 +50,17 @@
                     {% set i = i + 1 %}
                     <tr>
                         <td>{{ i }}</td>
+                        <td>{{ element.elementName }}</td>
+                        <td>{{ element.positionName }}</td>
+                        <td>{{ element.description }}</td>
                         <td>{{ element.quantity }}</td>
                         <td>{{ element.material }}</td>
                         <td>{{ element.lenght }}</td>
-                        <td>{{ allEdges[element.edgeLenght1.id - 1].name }}</td>
-                        <td>{{ allEdges[element.edgeLenght2.id - 1].name }}</td>
+                        <td>{{ allEdges[element.edgeLenght1.id].name }}</td>
+                        <td>{{ allEdges[element.edgeLenght2.id].name }}</td>
                         <td>{{ element.width }}</td>
-                        <td>{{ allEdges[element.edgeWidth1.id - 1].name }}</td>
-                        <td>{{ allEdges[element.edgeWidth2.id - 1].name }}</td>
+                        <td>{{ allEdges[element.edgeWidth1.id].name }}</td>
+                        <td>{{ allEdges[element.edgeWidth2.id].name }}</td>
                         <td>
                             {% if element.rotatable == true %}
                                 Tak

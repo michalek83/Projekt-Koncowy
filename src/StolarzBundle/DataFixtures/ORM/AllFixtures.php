@@ -13,7 +13,7 @@ class AllFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
         {
-        // create 5 customers, edges, material
+        // create 20 customers, edges, material
             for ($i = 1; $i <= 20; $i++) {
                 $customer = new Customer();
                 $customer->setName('CustomerName nr ' . $i);
@@ -42,7 +42,7 @@ class AllFixtures extends Fixture
 
                 $order = new Order();
                 $order->setCustomer($customer);
-                $order->setOrderName($customer, $i);
+                $order->setOrderName($customer->getName());
 
                 for ($j = 1; $j < 10; $j++){
                     $element = new Element();

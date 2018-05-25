@@ -15,7 +15,7 @@ class Customer
 {
 
     /**
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="Order", mappedBy="customer", cascade={"persist", "remove"})
      */
     private $order;
 

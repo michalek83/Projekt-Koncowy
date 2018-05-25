@@ -69,14 +69,14 @@ class Element
     /**
      * @var string
      *
-     * @ORM\Column(name="elementName", type="string", length=255)
+     * @ORM\Column(name="elementName", type="string", length=255, nullable=true)
      */
     private $elementName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="positionName", type="string", length=255)
+     * @ORM\Column(name="positionName", type="string", length=255, nullable=true)
      */
     private $positionName;
 
@@ -84,7 +84,7 @@ class Element
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 

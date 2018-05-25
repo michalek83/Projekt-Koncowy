@@ -50,10 +50,12 @@ class OrderController extends Controller
 
 		$form->handleRequest( $request );
 
-		if ( $form->isSubmitted() && $form->isValid() ) {
+		if  ($form->isSubmitted() && ($form->isValid())) {
 			$session = $request->getSession();
 			$customer = $order->getCustomer();
+			$orderName = $order->getOrderName();
 			$session->set('customer', $customer);
+			$session->set('orderName', $orderName);
             $em = $this->getDoctrine()->getManager();
             $em->persist( $order );
 
@@ -101,6 +103,10 @@ class OrderController extends Controller
         $edgeRepository = $this->getDoctrine()->getRepository( 'StolarzBundle:Edge' );
         $allEdges = $edgeRepository->findAll();
 
+        $session = $request->getSession();
+        $deleted = $session->get('deleted');
+        $session->set('deleted', null);
+
         foreach($allEdges as $edge){
             $allEdgesRebuilded[$edge->getId()] = $edge;
         }
@@ -110,7 +116,8 @@ class OrderController extends Controller
                 'orderById' => $orderById,
                 'customer' => $customer,
                 'orderElements' => $orderElements,
-                'allEdges' => $allEdgesRebuilded
+                'allEdges' => $allEdgesRebuilded,
+                'deleted' => $deleted
             ) );
     }
 
