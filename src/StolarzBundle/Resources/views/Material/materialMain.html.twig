@@ -19,22 +19,24 @@
     <a href="{{ path('createMaterial') }}">Dodaj nowy materiał</a>
 
     <table border = "1" rules = "all">
-        <tr>
-            <td>Id</td>
-            <td>Nazwa</td>
-            <td>Uwagi</td>
-            {#<td>Usuwanie</td>#}
-        </tr>
-        {% set i = 0 %}
-        {% for material in allMaterials %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                <td>{{ material.name }}</td>
-                <td>{{ material.description }}</td>
-                <td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>
-            </tr>
-        {% endfor %}
+        <thead>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Uwagi</th>
+            <th>Usuń materiał</th>
+        </thead>
+        <tbody>
+            {% set i = 0 %}
+            {% for material in allMaterials %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.description }}</td>
+                    <td><a href="{{ path('deleteMaterial', {'id':material.id}) }}">Usuń materiał</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
 

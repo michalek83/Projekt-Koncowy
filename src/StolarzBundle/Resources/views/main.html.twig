@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Witaj w formularzu zamówienia :)</h1>
-    <p>Main Template</p>
+    {#<p>Main Template</p>#}
     <li><a href="{{ path('createOrder') }}">Dodaj zamówienie</a></li>
 
     <h5>Lista wszystkich zamówień: </h5>
@@ -14,24 +14,26 @@
     {% endif %}
 
     <table border = "1" rules = "all">
-        <tr>
-            <td>Id</td>
-            <td>Nr zamówienia</td>
-            <td>Nazwa klienta</td>
-            <td>Data zamówienia</td>
-            <td>Wyślij maila</td>
-        </tr>
-        {% set i = 0 %}
-        {% for order in allOrders %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
-                <td><a href="{{ path('orderShowByCustomerId',{'customerId':order.customer.id}) }}">{{ allCustomers[order.customer.id].name }}</a></td>
-                <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
-                <td><a href="{{ path('emailSend',{'orderId':order.id}) }}">Wyślij</a></td>
-            </tr>
-        {% endfor %}
+        <thead>
+            <th>Id</th>
+            <th>Nr zamówienia</th>
+            <th>Nazwa klienta</th>
+            <th>Data zamówienia</th>
+            <th>Wyślij maila</th>
+        </thead>
+        <tbody>
+            {% set i = 0 %}
+            {% for order in allOrders %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
+                    <td><a href="{{ path('orderShowByCustomerId',{'customerId':order.customer.id}) }}">{{ allCustomers[order.customer.id].name }}</a></td>
+                    <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
+                    <td><a href="{{ path('emailSend',{'orderId':order.id}) }}">Wyślij</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 

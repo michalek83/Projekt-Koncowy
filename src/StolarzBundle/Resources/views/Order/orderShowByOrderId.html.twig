@@ -13,30 +13,39 @@
 
     <a href="{{ path('createElement') }}">Dodaj nowy element</a><br><br>
 
+    {% if deleted is not null %}
+        Element skasowany.<br>
+    {% endif %}
+
     <table border = "1" rules = "all">
         {% if orderById.element is empty %}
             <font color="red"><b>Brak elementów w zamówieniu.</b></font>
         {% else %}
-
-        <tr>
-            <td>Numer elementu</td>
-            <td>Sztuk</td>
-            <td>Materiał</td>
-            <td>Długość</td>
-            <td>Obrzeże 1</td>
-            <td>Obrzeże 2</td>
-            <td>Szerokość</td>
-            <td>Obrzeże 1</td>
-            <td>Obrzeże 2</td>
-            <td>Obrotowo</td>
-            <td>Usuń element</td>
-        </tr>
-
+        <thead>
+            <th>Numer elementu</th>
+            <th>Element</th>
+            <th>Pozycja</th>
+            <th>Oznaczenie</th>
+            <th>Sztuk</th>
+            <th>Materiał</th>
+            <th>Długość</th>
+            <th>Obrzeże 1</th>
+            <th>Obrzeże 2</th>
+            <th>Szerokość</th>
+            <th>Obrzeże 1</th>
+            <th>Obrzeże 2</th>
+            <th>Obrotowo</th>
+            <th>Usuń element</th>
+        </thead>
+        <tbody>
             {% set i = 0 %}
             {% for element in orderElements %}
                 {% set i = i + 1 %}
                 <tr>
                     <td>{{ i }}</td>
+                    <td>{{ element.elementName }}</td>
+                    <td>{{ element.positionName }}</td>
+                    <td>{{ element.description }}</td>
                     <td>{{ element.quantity }}</td>
                     <td>{{ element.material }}</td>
                     <td>{{ element.lenght }}</td>
@@ -56,7 +65,7 @@
                 </tr>
             {% endfor %}
         {% endif %}
-
+        </tbody>
     </table>
 
     <h3><a href="{{ path('deleteOrder', {'orderId':orderById.id}) }}">Usuń zamówienie</a></h3>

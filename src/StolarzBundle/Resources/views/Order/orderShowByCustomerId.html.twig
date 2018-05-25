@@ -7,21 +7,23 @@
     <h1>Lista zamówień klienta {{ customer.name }} : </h1>
 
     <table border = "1" rules = "all">
-        <tr>
-            <td>Id</td>
-            <td>Nr zamówienia</td>
-            <td>Data zamówienia</td>
-        </tr>
-        {% set i = 0 %}
-        {% for order in allOrdersByCustomerId %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
-                <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
-                <td><a href="{{ path('deleteOrder', {'orderId':order.id}) }}">Usuń zamówienie</a></td>
-            </tr>
-        {% endfor %}
+        <thead>
+            <th>Id</th>
+            <th>Nr zamówienia</th>
+            <th>Data zamówienia</th>
+        </thead>
+        <tbody>
+            {% set i = 0 %}
+            {% for order in allOrdersByCustomerId %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
+                    <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
+                    <td><a href="{{ path('deleteOrder', {'orderId':order.id}) }}">Usuń zamówienie</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 

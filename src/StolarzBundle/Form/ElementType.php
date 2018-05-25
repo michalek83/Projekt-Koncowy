@@ -19,6 +19,9 @@ class ElementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('elementName', 'text', array('label' => 'Element', 'required' => false ))
+            ->add('positionName', 'text', array('label' => 'Pozycja', 'required' => false ))
+            ->add('description', 'text', array('label' => 'Oznaczenie', 'required' => false ))
             ->add('material', EntityType::class, array(
                 'class' => 'StolarzBundle:Material',
                 'choice_label' => 'name',
@@ -55,7 +58,7 @@ class ElementType extends AbstractType
                 ),
                 'choices_as_values' => true,
             ))
-            ->add( 'Dodaj', 'submit' )
+            ->add( 'save', 'submit', array('label' => 'Dodaj element') )
 			->getForm()
             ;
     }

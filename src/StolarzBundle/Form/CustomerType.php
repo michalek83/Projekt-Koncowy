@@ -16,8 +16,9 @@ class CustomerType extends AbstractType
         $builder
             ->add( 'name', 'text', array( 'required' => true, 'label' => 'Nazwa: ' ) )
             ->add( 'address', 'text', array( 'required' => true, 'label' => 'Adres: ' ) )
+            ->add( 'emailaddress', 'text', array( 'required' => true, 'label' => 'Adres email: ' ) )
             ->add( 'description', 'text', array( 'label' => 'Uwagi: ', 'required' => false ) )
-            ->add( 'save', 'submit', array( 'label' => 'Stwórz klienta' ) )
+            ->add( 'save', 'submit', array( 'label' => 'Dodaj klienta' ) )
             ->getForm()
             ;
     }
