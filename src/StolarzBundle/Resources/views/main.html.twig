@@ -21,17 +21,19 @@
             <th>Data zamówienia</th>
             <th>Wyślij maila</th>
         </thead>
-        {% set i = 0 %}
-        {% for order in allOrders %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
-                <td><a href="{{ path('orderShowByCustomerId',{'customerId':order.customer.id}) }}">{{ allCustomers[order.customer.id].name }}</a></td>
-                <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
-                <td><a href="{{ path('emailSend',{'orderId':order.id}) }}">Wyślij</a></td>
-            </tr>
-        {% endfor %}
+        <tbody>
+            {% set i = 0 %}
+            {% for order in allOrders %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td><a href="{{ path('orderShowByOrderId',{'orderId':order.id}) }}">{{ order.id }}</a></td>
+                    <td><a href="{{ path('orderShowByCustomerId',{'customerId':order.customer.id}) }}">{{ allCustomers[order.customer.id].name }}</a></td>
+                    <td>{{ order.orderDateTime.date|date("d-m-Y G:i:s") }}</td>
+                    <td><a href="{{ path('emailSend',{'orderId':order.id}) }}">Wyślij</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 

@@ -19,23 +19,26 @@
     <a href="{{ path('createEdge') }}">Dodaj nowe obrzeże</a>
 
     <table border = "1" rules = "all">
-        <tr>
-            <td>Id</td>
-            <td>Nazwa</td>
-            <td>Grubość</td>
-            <td>Uwagi</td>
-        </tr>
-        {% set i = 0 %}
-        {% for edge in allEdges %}
-            {% set i = i + 1 %}
-            <tr>
-                <td>{{ i }}</td>
-                <td>{{ edge.name }}</td>
-                <td>{{ edge.thickness }} mm</td>
-                <td>{{ edge.description }}</td>
-                <td><a href="{{ path('deleteEdge', {'id':edge.id}) }}">Usuń obrzeże</a></td>
-            </tr>
-        {% endfor %}
+        <thead>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Grubość</th>
+            <th>Uwagi</th>
+            <th>Usuń obrzeże</th>
+        </thead>
+        <tbody>
+            {% set i = 0 %}
+            {% for edge in allEdges %}
+                {% set i = i + 1 %}
+                <tr>
+                    <td>{{ i }}</td>
+                    <td>{{ edge.name }}</td>
+                    <td>{{ edge.thickness }} mm</td>
+                    <td>{{ edge.description }}</td>
+                    <td><a href="{{ path('deleteEdge', {'id':edge.id}) }}">Usuń obrzeże</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 
 {% endblock %}
