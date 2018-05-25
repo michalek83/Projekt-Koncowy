@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Witaj w formularzu zamówienia :)</h1>
-    <p>Main Template</p>
+    {#<p>Main Template</p>#}
     <li><a href="{{ path('createOrder') }}">Dodaj zamówienie</a></li>
 
     <h5>Lista wszystkich zamówień: </h5>
@@ -14,13 +14,13 @@
     {% endif %}
 
     <table border = "1" rules = "all">
-        <tr>
-            <td>Id</td>
-            <td>Nr zamówienia</td>
-            <td>Nazwa klienta</td>
-            <td>Data zamówienia</td>
-            <td>Wyślij maila</td>
-        </tr>
+        <thead>
+            <th>Id</th>
+            <th>Nr zamówienia</th>
+            <th>Nazwa klienta</th>
+            <th>Data zamówienia</th>
+            <th>Wyślij maila</th>
+        </thead>
         {% set i = 0 %}
         {% for order in allOrders %}
             {% set i = i + 1 %}
