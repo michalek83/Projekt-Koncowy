@@ -54,14 +54,17 @@ class EmailController extends Controller
 
         $this->get('mailer')->send($message);
 
-//        $csvFile->deleteTempFolder();
+        $csvFile->deleteTempFolder();
 
         $session = $request->getSession();
         $session->set('emailConfirmation', 'Wysłano');
         $session->set('emailCustomerName', $customerName);
         $session->set('emailOrderId', $orderId);
 
-        return $this->redirectToRoute( 'main' );
+        $previousPage = $session->get('previousPage');
+        $session->set('previousPage', null);
+
+        return $this->redirectToRoute($previousPage, ['orderId' => $orderId]);
     }
 
 }

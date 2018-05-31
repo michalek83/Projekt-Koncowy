@@ -105,7 +105,14 @@ class OrderController extends Controller
 
         $session = $request->getSession();
         $deleted = $session->get('deleted');
+        $emailConfirmation = $session->get('emailConfirmation');    // Potwierdzenie wysłania maila
+        $session->set('emailConfirmation', null);
+        $emailCustomerName = $session->get('emailCustomerName');    // Nazwa klienta z potwierdzenia wysłąnia maila
+        $session->set('emailCustomerName', null);
+        $emailOrderId = $session->get('emailOrderId');    // Nazwa klienta z potwierdzenia wysłąnia maila
+        $session->set('emailOrderId', null);
         $session->set('deleted', null);
+        $session->set('previousPage', 'orderShowByOrderId');
 
         foreach($allEdges as $edge){
             $allEdgesRebuilded[$edge->getId()] = $edge;
@@ -117,6 +124,9 @@ class OrderController extends Controller
                 'customer' => $customer,
                 'orderElements' => $orderElements,
                 'allEdges' => $allEdgesRebuilded,
+                'emailCustomerName' => $emailCustomerName,
+                'emailOrderId' => $emailOrderId,
+                'emailConfirmation' => $emailConfirmation,
                 'deleted' => $deleted
             ) );
     }
