@@ -36,18 +36,19 @@ class DefaultController extends Controller
         }
 
         $session = $request->getSession();
-        $confirmation = $session->get('confirmation', null);    // Potwierdzenie stworzenia zamówienia
+        $confirmation = $session->get('confirmation');    // Potwierdzenie stworzenia zamówienia
         $session->set('confirmation', null);
-        $emailConfirmation = $session->get('emailConfirmation', null);    // Potwierdzenie wysłania maila
+        $emailConfirmation = $session->get('emailConfirmation');    // Potwierdzenie wysłania maila
         $session->set('emailConfirmation', null);
-        $emailCustomerName = $session->get('emailCustomerName', null);    // Nazwa klienta z potwierdzenia wysłąnia maila
+        $emailCustomerName = $session->get('emailCustomerName');    // Nazwa klienta z potwierdzenia wysłąnia maila
         $session->set('emailCustomerName', null);
-        $emailOrderId = $session->get('emailOrderId', null);    // Nazwa klienta z potwierdzenia wysłąnia maila
+        $emailOrderId = $session->get('emailOrderId');    // Nazwa klienta z potwierdzenia wysłąnia maila
         $session->set('emailOrderId', null);
-        $exist = $session->get('exist', null);                  // Zamówenie istnieje
+        $exist = $session->get('exist');                  // Zamówenie istnieje
         $session->set('exist', null);
-        $deleted = $session->get('deleted', null);              // Zamówienie skasowano
+        $deleted = $session->get('deleted');              // Zamówienie skasowano
         $session->set('deleted', null);
+        $session->set('previousPage', 'main');
 
 		return $this->render( 'StolarzBundle::main.html.twig',
 			array(
