@@ -52,7 +52,8 @@ class EmailController extends Controller
             ->attach(\Swift_Attachment::fromPath($attachmentPath))
         ;
 
-        $this->get('mailer')->send($message);
+        $mailer = $this->get('mailer');
+        $mailer->send($message);
 
         $csvFile->deleteTempFolder();
 
